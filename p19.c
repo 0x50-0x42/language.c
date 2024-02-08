@@ -1,19 +1,28 @@
 #include<stdio.h>
-#define IN 1
-#define OUT 2
+
 
 int main(void) {
 	int c, len = 0, idx = 0;
 
 	int length[10];  // let's assume that there are going to be 10 words or less than 10 words in a string
-	int state = OUT;
 
 	while((c = getchar()) != EOF) {
-		if(c == ' ' || c == '\t' || c == '\n')
-			state = OUT;
+		if((c == ' ' || c == '\t' || c == '\n') && len > 0) {
+			length[idx++] = len;
+			len = 0;
+		}
 
-		else if(state == OUT)
-			state = IN;
+		else if(c != ' ' && c != '\t' && c != '\n')
+			++len;
+	}
+
+	puts("Histogram:");
+
+	for(int i = 0; i < idx; i++) {
+		printf("|");
+		for(int j = 0; j < length[i]; j++)
+			printf("-");
+		printf("\n");
 	}
 
 	return 0;
