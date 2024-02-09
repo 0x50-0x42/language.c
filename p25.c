@@ -19,39 +19,18 @@ int main(void) {
 	}
 
 	printf("Longest string: %s\n", longest);
-	printf("\nLength: %d\n", len);
+	printf("\nLength: %d\n", max);
 
 	return 0;
 }
 
 int getLine(char line[], int maxline) {
+
 	int c, idx = 0;
 
-	while(((c = getchar()) != EOF) && (c != '\n') && (idx < maxline - 1))
-		line[idx++] = c;
-
-	if(idx == maxline - 1) {
-		int len = idx;
-
-		line[idx - 1] = '\0';
-		line[idx - 2] = '\n';
-
-		for(int i = idx - 3; i > idx - 5; i--)
-			line[i] = '.';
-
-		while((c = getchar()) != '\n')
-			idx++;
-
-		return idx;
-	}
-
-	else if(c == '\n') {
+	while(((c = getchar()) != EOF) && (c != '\n') && (idx != maxline - 1)) {
 		line[idx++] = c;
 	}
-	
-	line[idx] = '\0';
-
-	return idx;
 }
 
 void copy(char to[], char from[]) {
