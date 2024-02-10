@@ -11,11 +11,11 @@ int main(void) {
 	int len = 0;
 
 	while((len = getLine(line, MAXLINE)) > 0) {
-		printf("\nString: %s\n", Length: %d\n", line, len);
+		printf("\nString: %s\nLength: %d\n", line, len);
 
 		reverse(line, reversed, len);
 
-		printf("\nReversed string: %s\n", Length: %d\n", reversed, len);
+		printf("\nReversed string: %s\nLength: %d\n", reversed, len);
 	}
 
 	puts("\nNo lines entered!");
@@ -52,5 +52,24 @@ int getLine(char line[], int maxline) {
 	return idx;
 }
 
-void reverse(char line[], char reversed[]) {
+void reverse(char line[], char reversed[], int len) {
+
+	int idx = 0;
+	if(len == MAXLINE - 1) {
+
+		for(int i = len - 2; i >= 4; i--)
+			reversed[idx++] = line[i];
+
+		reversed[idx] = '.';
+		reversed[idx + 1] = '.';
+		reversed[idx + 2] = '\n';
+		reversed[idx + 3] = '\0';
+	}
+
+	else {
+		for(int i = len - 2; i >= 0; i--)
+			reversed[idx++] = line[i];
+		reversed[idx++] = '\n';
+		reversed[idx] = '\0';
+	}
 }
