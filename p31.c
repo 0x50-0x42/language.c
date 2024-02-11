@@ -1,4 +1,5 @@
 #include<stdio.h>
+
 #define MAXLINE 1000
 
 int getLine(char[]);
@@ -43,4 +44,20 @@ int getLine(char[]) {
 }
 
 void entab(char line[], int len) {
+	int spaces = 0;
+
+	for(int i = 0; line[i] != '\0'; i++) {
+		if(line[i] == ' ')
+			spaces++;
+
+		if(spaces == 1) {        // if there is atleast one whitespace
+			for(int j = i; line[j] != '\0'; j++) {        // this loop checks for consecutive whitespaces!
+				if(line[j] == ' ')
+					spaces++;
+				else
+					break;
+			}
+		}
+	}
+
 }
