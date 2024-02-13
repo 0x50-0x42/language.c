@@ -56,15 +56,15 @@ void entab(char line[], int len) {
 
 			i = idx; // moving to the last index which contains a non-space character
 
-			if(spaces % 4 == 0) {   // if the number of spaces is divisible by 4
-				for(int k = 0; k < (spaces / 4); k++)  // quotient times tabs will be displayed!
+			if(spaces % TABSIZE == 0) {   // if the number of spaces is divisible by 4
+				for(int k = 0; k < (spaces / TABSIZE); k++)  // quotient times tabs will be displayed!
 					putchar('\t');
 			}
 
 			else {   // if the number of spaces is not completely divisible by 4
-				for(int k = 0; k < (spaces / 4); k++)  // quotient tabs will be displayed!
+				for(int k = 0; k < (spaces / TABSIZE); k++)  // quotient times tabs will be displayed!
 					putchar('\t');
-				for(int k = 0; k < (spaces % 4); k++)  // remainder times whitespaces will be displayed!
+				for(int k = 0; k < (spaces % TABSIZE); k++)  // remainder times whitespaces will be displayed!
 					putchar(' ');
 			}
 
