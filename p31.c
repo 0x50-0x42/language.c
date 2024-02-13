@@ -1,5 +1,6 @@
 #include<stdio.h>
 
+#define TABSIZE 4         // one tab = 4 spaces
 #define MAXLINE 1000
 
 int getLine(char[]);
@@ -18,7 +19,7 @@ int main(void) {
 	return 0;
 }
 
-int getLine(char[]) {
+int getLine(char line[]) {
 
 	int c, idx = 0;
 
@@ -44,20 +45,34 @@ int getLine(char[]) {
 }
 
 void entab(char line[], int len) {
-	int spaces = 0;
+	int spaces = 0, idx = 0;
 
 	for(int i = 0; line[i] != '\0'; i++) {
-		if(line[i] == ' ')
-			spaces++;
-
-		if(spaces == 1) {        // if there is atleast one whitespace
-			for(int j = i; line[j] != '\0'; j++) {        // this loop checks for consecutive whitespaces!
-				if(line[j] == ' ')
-					spaces++;
-				else
-					break;
+		if(line[i] == ' ') {
+			for(int j = i; line[j] == ' '; j++) {
+				idx = j;
+				spaces++;
 			}
+
+			i = idx; // moving to the last index which contains a non-space character
+
+			if(spaces % 4 == 0) {   // if the number of spaces is divisible by 4
+				for(int k = 0; k < (spaces / 4); k++)  // quotient times tabs will be displayed!
+					putchar('\t');
+			}
+
+			else {   // if the number of spaces is not completely divisible by 4
+				for(int k = 0; k < (spaces / 4); k++)  // quotient tabs will be displayed!
+					putchar('\t');
+				for(int k = 0; k < (spaces % 4); k++)  // remainder times whitespaces will be displayed!
+					putchar(' ');
+			}
+
+			spaces = 0;
 		}
+
+		else
+			putchar(line[i]);
 	}
 
 }
