@@ -33,22 +33,23 @@ int main(void) {
 
 int getLine(char line[]) {
 
-	int c, idx = 0, spaces = 0;
+	int c, idx = 0, chars = 0;
 
 	while((c = getchar()) != EOF && idx != LENGTH - 1) {
-		if(c == ' ' || c == '\t')
-			spaces++;
+		if(c != ' ' && c != '\t' && c != '\n')
+			chars++;
 		line[idx++] = c;
 	}
-
-	if(idx == LENGTH - 1 && spaces == idx)
-		return (idx+100);
 
 	if(idx == 0)
 		return -1;
 
+	if(!chars)
+		return -1;
+
 	if(c == EOF || idx == LENGTH - 1)
 		line[idx] = '\0';
+
 
 	return idx;
 }
@@ -62,7 +63,7 @@ int length(char word[]) {
 }
 
 int fold(char line[], int len)  {
-	if(len == LENGTH + 100)
+	if(len == -1)
 		return 0;
 
 	int counter = 0, prev = '\0', idx = 0, strLen = 0;
@@ -78,6 +79,7 @@ int fold(char line[], int len)  {
 					idx = j;
 					putchar(line[j]);
 				}
+				i = idx;
 				counter = 0; // reset the counter
 			}
 
@@ -91,7 +93,6 @@ int fold(char line[], int len)  {
 			putchar(line[i]);
 		}
 
-		i = idx;
 		prev = line[i];
 
 		counter++;
