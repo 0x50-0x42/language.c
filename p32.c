@@ -9,6 +9,7 @@
 #define LENGTH 1000
 
 int getLine(char[]);
+int length(char[]);
 int fold(char[], int);
 
 int main(void) {
@@ -52,7 +53,49 @@ int getLine(char line[]) {
 	return idx;
 }
 
+int length(char word[]) {
+	int len = 0;
+	for(int i = 0; word[i] != ' ' && word[i] != '\t' && word[i] != '\0'; i++)
+		len++;
+
+	return len;
+}
+
 int fold(char line[], int len)  {
+	if(len == LENGTH + 100)
+		return 0;
+
+	int counter = 0, prev = '\0', idx = 0, strLen = 0;
+
 	for(int i = 0; line[i] != '\0'; i++) {
+		if(prev == '\0' || prev == ' ' || prev == '\t') {
+			strLen = length(line + i);  // get the length of the word
+
+			// if the sum of counter and length of the string gives us the maximum number of input columns then we will fold
+			if(counter + strLen >= COL) {
+				putchar(NEWLINE);
+				for(int j = i; line[j] != ' ' && line[j] != '\t' && line[j] != '\0'; j++) {
+					idx = j;
+					putchar(line[j]);
+				}
+				counter = 0; // reset the counter
+			}
+
+			// if the sum doesn't result in a value greater than or equal to the maximum number of input columns, then simply print
+			else {
+				putchar(line[i]);
+			}
+		}
+
+		else {
+			putchar(line[i]);
+		}
+
+		i = idx;
+		prev = line[i];
+
+		counter++;
 	}
+
+	return 1;
 }
