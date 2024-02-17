@@ -35,26 +35,12 @@ void syntax(char line[], int len) {
 	char brk[len], quotes[len];
 	int idxB = -1, idxQ = -1;
 
+	char open = '\0', close = '\0';
+
 	for(int i = 0; i < len; i++)
 		brk[i] = quotes[i] = '\0';
 
 	for(int i = 0; line[i] != '\0'; i++) {
-
-		if(line[i] == '\'') {
-			if(idxQ == -1)
-				quotes[++idxQ] = line[i];
-
-			else if(quotes[idxQ] == '\'')
-				idxQ--;
-		}
-
-		else if(line[i] == '\"') {
-			if(idxQ == -1)
-				quotes[++idxQ] = line[i];
-
-			else if(quotes[idxQ] == '\"')
-				idxQ--;
-		}
 
 		if((line[i] == '(' || line[i] == '[' || line[i] == '{') && idxQ < 0)
 			brk[++idxB] = line[i];
@@ -62,25 +48,31 @@ void syntax(char line[], int len) {
 		else if(line[i] == ')' && idxQ < 0) {
 			if(brk[idxB] == '(')
 				idxB--;
+			else
+				mismatched++;
 		}
 
 		else if(line[i] == ']' && idxQ < 0) {
 			if(brk[idxB] == '[')
 				idxB--;
+			else
+				mismatched++;
 		}
 
 		else if(line[i] == '}' && idxQ < 0) {
 			if(brk[idxB] == '{')
 				idxB--;
+			else
+				mismatched++;
 		}
 	}
 
-	if(idxB < 0 )
+	if(!mismatched)
 		return;
 	else
 		puts("Unbalanced parentheses, brackets or braces");
 
-	if(idxQ < 0)
+	if(!misplaced)
 		return;
 	else
 		puts("Misplaced quotes");
