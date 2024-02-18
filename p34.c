@@ -32,22 +32,53 @@ int getLine(char program[]) {
 
 void syntax(char line[], int len) {
 
-	int misplaced = 0, mismatched = 0, errComment = 0;
+	int misplaced = 0, mismatched = 0, errComment = 0, open = 0, single = 0;
 
 	char brk[len], quotes[len], comments[len];
 	int idxB = -1, idxQ = -1, idxC = -1;
-
-	char open = '\0', close = '\0';
 
 	for(int i = 0; i < len; i++)
 		brk[i] = quotes[i] = comments[i] = '\0';
 
 	for(int i = 0; line[i] != '\0'; i++) {
+		if(line[i] == '\n')
+			single = 0;
 
-		// TODO: handle comments now!!
+		if(line[i] == '/' && i + 1 != len) {
+			if(line[i + 1] == '/') // single line comments are easy to handle
+				single = 1;
+
+			else if(line[i + 1] == '*') {
+				if(single); // if this multi-line comment is a part of the single comment then we ignore it
+				else if(!open) {
+					comments[++idxC] = line[i];
+					comments[++idxC] = line[i + 1];
+					open = 1;
+					i++;
+				}
+
+				else
+					errComment++;
+			}
+		}
+
+		else if(line[i] == '*' && i + 1 != len) {
+			if(line[i + 1] == '/') {
+				if(open) {
+					idxC -= 2;
+					open = 0;
+				}
+
+				else
+					errComment++;
+			}
+		}
 
 		if(line[i] == '\'') {
-			if(idxQ == -1)
+
+			if(single || open) ; // if this single quote is a part of a comment then ignore it
+
+			else if(idxQ == -1)
 				quotes[++idxQ] = line[i];
 
 			else if(quotes[idxQ] != '\'')
@@ -58,7 +89,10 @@ void syntax(char line[], int len) {
 		}
 
 		else if(line[i] == '\"') {
-			if(idxQ == -1)
+
+			if(single || open) ; // if this single quote is a part of a comment then ignore it
+
+			else if(idxQ == -1)
 				quotes[++idxQ] = line[i];
 
 			else if(quotes[idxQ] != '\"')
@@ -68,7 +102,7 @@ void syntax(char line[], int len) {
 				idxQ--;
 		}
 
-		if((line[i] == '(' || line[i] == '[' || line[i] == '{') && idxQ < 0)
+		if((line[i] == '(' || line[i] == '[' || line[i] == '{' || line[i] == '<') && idxQ < 0)
 			brk[++idxB] = line[i];
 
 		else if(line[i] == ')' && idxQ < 0) {
@@ -91,21 +125,69 @@ void syntax(char line[], int len) {
 			else
 				mismatched++;
 		}
+
+		else if(line[i] == '>' && idxQ < 0) {
+			if(brk[idxB] == '<')
+				idxB--;
+			else
+				mismatched++;
+		}
 	}
 
-	if(!mismatched) {
-		if(!misplaced)
-			return;
-		else
+	if(!mismatched && idxB < 0) {
+		if(!misplaced && idxQ < 0) {
+			if(!open && !errComment)
+				return;
+
+			else if(open)
+				puts("Unclosed comment");
+
+			else if(errComment)
+				puts("Nested comments not allowed");
+		}
+
+		else {
 			puts("Misplaced quotes");
+
+			if(!open && !errComment)
+				return;
+
+			else if(open)
+				puts("Unclosed comment");
+
+			else if(errComment)
+				puts("Nested comments not allowed");
+		}
 	}
 
 	else {
 		puts("Mismatched parentheses, brackets, braces...");
 
-		if(!misplaced)
+		if(!misplaced && idxQ < 0) {
+
+			if(!open && !errComment)
+				return;
+
+			else if(open)
+				puts("Unclosed comment");
+
+			else if(errComment)
+				puts("Nested comments not allowed");
+
 			return;
-		else
+		}
+
+		else {
 			puts("Misplaced quotes");
+
+			if(!open && !errComment)
+				return;
+
+			else if(open)
+				puts("Unclosed comment");
+
+			else if(errComment)
+				puts("Nested comments not allowed");
+		}
 	}
 }
