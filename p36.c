@@ -21,7 +21,7 @@ int main(void) {
 				line[idx++] = c;
 			else {
 				printf("\nString: %s\n", line);
-				return 255;
+				return EOF;
 			}
 		}
 
