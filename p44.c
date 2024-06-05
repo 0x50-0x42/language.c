@@ -39,5 +39,6 @@ void squeeze(char s1[], char s2[]) {
 
 		for(k = 0; s3[k] != '\0'; k++)
 			s1[k] = s3[k];
+		s1[k] = '\0';
 	}
 }
