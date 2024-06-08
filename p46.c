@@ -24,15 +24,29 @@ unsigned getBits(unsigned x, int p, int n) {
 
 	before beginning, a very important note: we use bitwise AND for turning off bits
 
-	p + 1 - n is 4 + 1 - 3 which is 2, so x >> 2 basically shifts the last 2 bits of x to the right
+	we need the bits in the bit-positions 4, 3 and 2
 
-	now, after shifting x, that is 100, to the right by 2 bits, extra 2 bits(unset bits i.e. 0s) will be added to the beginning
-	of x, now we are focusing on the last 3 bits of x, so that means we need to turn off the remaining bits of x except the last 3 bits
-	and for	that we need a mask that does the work
+	binary equivalent of 100 is: 00000000 00000000 00000000 01100100
 
-	so, ~0 basically is all ones in binary and shifting it left by 3 bits gives us 3 0s at the end and negating the whole process
-	that is (~0 << n) gives us a mask that has the last 3 bits set(that is 1) and the remaining bits are 0
+	so, the bits in the bit positions 4, 3 and 2 are: 001, so we need to return these bits;
+	so for that we need to right-shift 100 by 2 bits and for that we have the formula:
+	
+	p + 1 - n = 2, so after shifting 100 by 2 bits to the right, we have the following result:
 
-	now, performing a bitwise AND operation between right-shifted x and the mask, gives us only the last 3-bits of x with the
-	remaining bits set to 0;
+	00000000 00000000 00000000 00011001
+
+	we can see that 001 is now the last 3 bits of x;
+
+	now, we will unset all the remaining bits of x except these last 3 bits, so for that
+	we have:
+
+	0  -> 00000000 00000000 00000000 00000000
+
+	~0 -> 11111111 11111111 11111111 11111111
+
+	~0 << n  -> 11111111 11111111 11111111 11111000
+
+	~(~0 << n)  -> 00000000 00000000 00000000 00000111
+
+	then we perform bitwise AND operation of this mask with right-shifted x
 */
