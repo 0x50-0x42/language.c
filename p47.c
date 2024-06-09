@@ -7,6 +7,8 @@ Explanation:
 
 Basically, we need to set the n bits of x to the rightmost n bits of y, that is, replace the n bits of x by the rightmost n bits of y;
 
+BUT THE REST OF THE BITS OF x MUST REMAIN UNCHANGED!!
+
 */
 
 #include<stdio.h>
@@ -19,7 +21,7 @@ int main(void) {
 
 	int p, n;
 
-	x = 170, y = 204;
+	x = 100, y = 110;
 
 	n = 3, p = 4;
 
@@ -31,26 +33,50 @@ int main(void) {
 }
 
 unsigned setbits(unsigned x, int p, int n, unsigned y) {
-
-	return (x | ((y & ~(~0 << n)) << (p + 1 - n)));
+	return (x & (~((~(~0 << n)) << (p + 1 - n)))) | ((y & (~(~0 << n))) << (p + 1 - n));
 }
 
 /*
-	n = 4, p = 4
+	n = 3, p = 4
 	~~~~~~~~~~~~
+	
+	x = 170                       v v
+	00000000 00000000 00000000 10101010
 
-	x = 170                       v  v
-	00000000 00000000 00000000 01100100
+	y = 204                         v v
+	00000000 00000000 00000000 11001100
 
-	y = 204
-	00000000 00000000 00000000 01101110
+	Create the mask for AND-ing with y
+	~0 << n
+	11111111 11111111 11111111 11111000
+
+	~(~0 << n)
+	00000000 00000000 00000000 00000111
 
 	y & ~(~0 << n)
-	00000000 00000000 00000000 00001110
+	00000000 00000000 00000000 00000100
 
-	y & ~(~0 << n) << (p + 1 - n) v  v
+	Left-shift y by (p + 1 - n) bits for target bits of x
+	(y & ~(~0 << n)) << (p + 1 - n)
+	00000000 00000000 00000000 00010000
+	                              ^ ^
+
+	Left-shift mask by (p + 1 - n)
+	(~(~0 << n)) << (p + 1 - n)
 	00000000 00000000 00000000 00011100
 
-	x | ((y & ~(~0 << n)) << (p + 1 - n))
-	00000000 00000000 00000000 01111100
+	After left-shifting mask, invert its bits
+	~((~(~0 << n)) << (p + 1 - n))
+	11111111 11111111 11111111 11100011
+	                              ^ ^
+
+	AND x with inverted mask so that its target bits are unset
+	x & ~((~(~0 << n)) << (p + 1 - n))
+	00000000 00000000 00000000 10100010
+	                              ^ ^
+
+	OR x with y so that its unset target bits are replaced by the bits of y
+	(x & ~((~(~0 << n)) << (p + 1 - n))) | ((y & ~(~0 << n)) << (p + 1 - n))
+	00000000 00000000 00000000 10110010
+	                              ^ ^
 */
