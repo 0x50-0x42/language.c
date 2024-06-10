@@ -6,7 +6,7 @@
 
 <details>
 <summary>Resources</summary>
-1. [Rotating bits](https://youtu.be/m_08FbT0_WY?si=-ufDpjDOhPn6_6k0).
+1. <a href="https://youtu.be/m_08FbT0_WY?si=-ufDpjDOhPn6_6k0">Rotating Bits</a>
 <br>
 </details>
 
