@@ -2,16 +2,6 @@
 	in a 2's-complement number system, x &= (x - 1) deletes the rightmost 1-bit in x;
 	explain why;
 	use this observation to write a faster version of bitcount;
-
-int bitcount(unsigned x) {
-
-	int set;
-
-	for(set = 0; x != 0; x >>= 1)
-		if(x & 0x01)
-			set++;
-	return set;
-}
 */
 
 #include<stdio.h>
@@ -19,11 +9,22 @@ int bitcount(unsigned x) {
 int bitcount_fast(unsigned);
 
 int main(void) {
+
+	int x = 123;
+
+	printf("%d has %d 1s\n", x, bitcount_fast(x));
+
 	return 0;
 }
 
 int bitcount_fast(unsigned x) {
-	return 0;
+	int bits = 0;
+	while(x != 0) {
+		bits++;
+		x &= (x - 1);
+	}
+
+	return bits;
 }
 
 /*
@@ -31,65 +32,35 @@ int bitcount_fast(unsigned x) {
 	~~~~~~
 	00010011
 
-	x - 1 = 18
-	~~~~~~~~~~
+	x - 1
+	~~~~~
 	00010010
-
-	x &= (x - 1)
-	~~~~~~~~~~~~
-	00010010(rightmost-bit is deleted)
-
-	x = -13
-	~~~~~~~
-
-	13 = 00001101
-
-	invert bits
-	11110010
-
-	add 1
-
-	-13 = 11110011
-
-	x - 1 = -13 - 1 = -14
-	~~~~~~~~~~~~~~~~~~~~~
-
-	14 = 00001110
-
-	invert bits
-	11110001
-
-	add 1
-
-	-14 = 11110010
-
-	x &= (x - 1)
-	~~~~~~~~~~~~
-	11110010
-
-	x = 19
-	~~~~~~
-	00010011
 
 	x & (x - 1)
 	~~~~~~~~~~~
-	00010010
+	00010010 -> 18
 
 	x = 18
 	~~~~~~
 	00010010
 
-	x & (x - 1)
-	~~~~~~~~~~~
+	x - 1
+	~~~~~
 	00010001
 
-	x = 17
+	x & (x - 1)
+	~~~~~~~~~~~
+	00010000 -> 16
+
+	x = 16
 	~~~~~~
-	00010001
-
-	x & (x - 1)
-	~~~~~~~~~~~
 	00010000
 
-	incomplete
+	x - 1
+	~~~~~
+	00001111
+
+	x & (x - 1)
+	~~~~~~~~~~~
+	00000000
 */
