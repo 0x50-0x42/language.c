@@ -6,6 +6,7 @@
 #include<stdio.h>
 
 int binSearch(int, int[], int);
+int binSearch2(int, int[], int);
 
 int main(void) {
 
@@ -17,6 +18,7 @@ int main(void) {
 	scanf("%d", &el);
 
 	int idx = binSearch(el, arr, 7);
+	idx = binSearch2(el, arr, 7);
 
 	if(idx != -1)
 		printf("%d is at index %d\n", el, idx);
@@ -33,17 +35,21 @@ int binSearch(int x, int v[], int n) {
 
 	int idx;
 
-	int mid;
+	int mid = (low + high) / 2;
 
-	while(low <= high) {
+	while(x != v[mid] && low <= high) {
+
+		if(x > v[mid])
+			low = mid + 1;
+		else
+			high = mid - 1;
 
 		mid = (low + high) / 2;
 
-		if(x != v[mid])
-			idx = x > v[mid] ? mid + 1 : mid - 1;
-		else
-			return mid;
 	}
+
+	if(x == v[mid])
+		return mid;
 
 	return -1;
 }
