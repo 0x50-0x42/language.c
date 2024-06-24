@@ -4,6 +4,7 @@
 */
 
 #include<stdio.h>
+#include<time.h>
 
 int binSearch(int, int[], int);
 int binSearch2(int, int[], int);
@@ -14,8 +15,12 @@ int main(void) {
 
 	int el;
 
+	clock_t start, end;
+
 	printf("enter element to be searched: ");
 	scanf("%d", &el);
+
+	start = clock();
 
 	int idx = binSearch(el, arr, 7);
 
@@ -23,12 +28,21 @@ int main(void) {
 		printf("binSearch()\n%d is at index %d\n", el, idx);
 	else
 		printf("binSearch()\n%d is not in the array\n", el);
+
+	end = clock();
+
+	printf("Took %lf seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
+
+	start = clock();
 	idx = binSearch2(el, arr, 7);
 
 	if(idx != -1)
-		printf("binSearch2()\n%d is at index %d\n", el, idx);
+		printf("\nbinSearch2()\n%d is at index %d\n", el, idx);
 	else
 		printf("binSearch2()\n%d is not in the array\n", el);
+
+	end = clock();
+	printf("Took %lf seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
 
 	return 0;
 }
