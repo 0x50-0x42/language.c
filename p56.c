@@ -28,7 +28,7 @@ int _atoi(char s[]) {
 
 	int i, n, sign;
 
-	for(i = 0; isspace(s[i]); i++) // skip whitespace if any(in the beginning)
+	for(i = 0; isspace(s[i]); i++) // skip whitespace if any(in the beginning of the number)
 		;
 
 	sign = (s[i] == '-') ? -1 : 1; // take the sign if any
