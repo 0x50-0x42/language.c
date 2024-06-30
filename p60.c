@@ -10,9 +10,28 @@ NOTE:
 */
 
 #include<stdio.h>
+#define MAXLEN 1000
+
+void _itoa(int, char[]);
 
 int main(void) {
-	int n = -2147483648;
-	printf("%d\n", n);
+	int n;
+	char s[MAXLEN];
+
+	printf("enter a number: ");
+	scanf("%d", &n);
+
+	_itoa(n, s);
+
 	return 0;
+}
+
+void _itoa(int n, char s[]) {
+
+	char sign;
+
+	if(n < 0) {
+		sign = '-';
+		n = -n; // make n positive
+	}
 }
