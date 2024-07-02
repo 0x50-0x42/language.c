@@ -54,8 +54,8 @@ void _itoa(int n, char s[], int fieldWidth) {
 
 	int len = strlen(s);
 
-	if(len != fieldWidth)
-		for(int i = 0; i < fieldWidth - len; i++)
+	if(len != fieldWidth) // checking if number is as wide as the field width
+		for(int i = 0; i < fieldWidth - len; i++) // padding using (fieldWidth - length of the number) blanks
 			s[idx++] = ' ';
 
 	reverse(s);
