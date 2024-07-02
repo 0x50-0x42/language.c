@@ -2,6 +2,8 @@
 	write a version of itoa() that accepts three arguments instead of two;
 	the third argument is a minimum field width; the converted number must
 	be padded with blanks on the left if necessary to make it wide enough;
+
+	basically it should work like when we specify field with in printf();
 */
 
 #include<stdio.h>
@@ -22,7 +24,7 @@ int main(void) {
 	printf("enter a number: ");
 	scanf("%d", &n);
 
-	_itoa(n, s, 3);
+	_itoa(n, s, 5);
 
 	printf("Formatted string:%s\n", s);
 
@@ -50,8 +52,11 @@ void _itoa(int n, char s[], int fieldWidth) {
 		n /= 10;
 	}while(n != 0);
 
-	for(int i = 0; i < fieldWidth; i++)
-		s[idx++] = ' ';
+	int len = strlen(s);
+
+	if(len != fieldWidth)
+		for(int i = 0; i < fieldWidth - len; i++)
+			s[idx++] = ' ';
 
 	reverse(s);
 }
