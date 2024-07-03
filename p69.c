@@ -4,6 +4,7 @@
 */
 
 #include<stdio.h>
+#include<string.h>
 
 #define MAXLEN 1000
 
@@ -12,7 +13,7 @@ void getLine(char[]);
 
 int main(void) {
 
-	char s[MAXLEN], pattern[MAXLEN];
+	char s[MAXLEN] = "", pattern[MAXLEN] = "";
 
 	printf("enter some string: ");
 	getLine(s);
@@ -33,4 +34,23 @@ void getLine(char s[]) {
 }
 
 void strindex(char s[], char pattern[]) {
+
+	int len = strlen(pattern);
+
+	for(int i = 0; s[i] != '\0'; i++) {
+		if(s[i] == pattern[0]) { // if any character in the string s matches the first character in the pattern
+			int count = 0;
+			for(int k = 0, j = i; s[j] == pattern[k] && s[j] != '\0'; k++, j++) // check if the rest of the characters in s match with pattern
+				count++; // basically counting the number of characters mathced with pattern
+			printf("%d\n%d\n", count, len);
+			if(count == len) { // checking if the number of characters matched is same as the length of pattern
+				while(i > 0 && s[i] != '\n')
+					i--;
+				while(s[i] != '\n' && s[i] != '\0') {
+					printf("%c", s[i]);
+					i++;
+				}
+			}
+		}
+	}
 }
