@@ -13,16 +13,14 @@ void getLine(char[]);
 
 int main(void) {
 
-	char s[MAXLEN], pattern[MAXLEN];
+	char s[MAXLEN] = "", pattern[MAXLEN] = "";
 
 	printf("enter some string: ");
 	getLine(s);
 
-	printf("%ld\n", strlen(s));
 
 	printf("enter pattern: ");
 	getLine(pattern);
-	printf("%ld\n", strlen(pattern));
 
 	strindex(s, pattern);
 
@@ -30,11 +28,18 @@ int main(void) {
 }
 
 void getLine(char s[]) {
-	int c, idx = 0;
+	int c = 0, idx = 0;
 
 	while((c = getchar()) != EOF)
 		s[idx++] = c;
-	s[idx] = '\0';
+	clearerr(stdin);
+	int i, last = strlen(s) - 1;
+
+	// remove any trailing newlines, tabs and whitespaces
+	for(i  = last; i >= 0; i--)
+		if(s[i] != '\n' && s[i] != '\t' && s[i] != ' ')
+			break;
+	s[i + 1] = '\0';
 }
 
 void strindex(char s[], char pattern[]) {
@@ -46,14 +51,18 @@ void strindex(char s[], char pattern[]) {
 			int count = 0;
 			for(int k = 0, j = i; (s[j] == pattern[k]) && s[j] != '\0'; k++, j++) // check if the rest of the characters in s match with pattern
 				count++; // basically counting the number of characters matched with pattern
-			printf("%d\n", count);
 			if(count == len) { // checking if the number of characters matched is same as the length of pattern
 				while(i > 0 && s[i] != '\n')
 					i--;
+
+				if(s[i] == '\n')
+					i += 1;
+
 				while(s[i] != '\n' && s[i] != '\0') {
 					printf("%c", s[i]);
 					i++;
 				}
+				printf("\n");
 			}
 		}
 	}
