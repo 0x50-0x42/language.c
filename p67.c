@@ -41,7 +41,7 @@ int main(void) {
 				continue;
 		}
 
-	} // an infinite loop which only displays "one"
+	}
 
 	return 0;
 }
