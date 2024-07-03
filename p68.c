@@ -41,7 +41,7 @@ int main(void) {
 		}
 
 
-	}while(i <= 10); // again, an infinite loop that displays only "one"
+	}while(i <= 10);
 
 	return 0;
 }
