@@ -8,7 +8,7 @@
 #define MAXLEN 1000
 
 void _getline(char[], int);
-int strindex(char[], char[]);
+void strindex(char[], char[]);
 
 int main(void) {
 
@@ -17,8 +17,13 @@ int main(void) {
 	printf("enter a string: ");
 	_getline(s, MAXLEN);
 
+	clearerr(stdin);
+
 	printf("enter a pattern: ");
 	_getline(pattern, MAXLEN);
+
+	strindex(s, pattern);
+
 	return 0;
 }
 
@@ -46,10 +51,28 @@ void _getline(char s[], int lim) {
 		s[idx + 1] = '\0';
 }
 
-int strindex(char s[], char pattern[]) {
+void strindex(char s[], char pattern[]) {
+
+	int count = 0;
+	int len = strlen(pattern);
 
 	for(int i = 0; s[i] != '\0'; i++) {
-	}
+		for(int k = 0; s[i] == pattern[k] && s[i] != '\0'; k++, i++)
+			count++;
 
-	return -1;
+		if(count == len) {
+			while(s[i] != '\n' && i > 0)
+				i--;
+			if(s[i] == '\n')
+				i++;
+
+			while(s[i] != '\n' && s[i] != '\0') {
+				printf("%c", s[i]);
+				i++;
+			}
+			printf("\n");
+		}
+
+		count = 0;
+	}
 }
