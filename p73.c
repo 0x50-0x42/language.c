@@ -1,7 +1,7 @@
 /*
 	extend atof() in p72.c to handle scientific notations of the form:
 		123.45e-6
-	where a floating-point number may be followed by e or E an an optionally signed component;
+	where a floating-point number may be followed by e or E and an optionally signed component;
 */
 
 #include<stdio.h>
