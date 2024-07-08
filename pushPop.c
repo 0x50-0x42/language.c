@@ -23,6 +23,6 @@ int pop() {
 	return stack[top--];
 }
 
-int getop() {
+int getTop() {
 	return stack[top];
 }

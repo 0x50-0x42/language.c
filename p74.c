@@ -11,7 +11,7 @@
 void _getline(char[], int);
 void push(int);
 int pop();
-int getop();
+int getTop();
 
 int main(void) {
 
@@ -60,6 +60,6 @@ int main(void) {
 		}
 	}
 
-	printf("Value: %d\n", getop());
+	printf("Value: %d\n", getTop());
 	return 0;
 }
