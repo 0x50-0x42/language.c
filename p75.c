@@ -14,13 +14,16 @@
 
 int getch(void); // delivers the next input character to be considered
 void ungetch(int); // remembers the characters put back on the input, so that subsequent calls to getch will return them before reading new input
-void getDig(char[], int);
+void getInp(char[], int);
 
 int main(void) {
 
 	char s[MAXLEN];
 
 	printf("enter a string: ");
-	getDig(s, MAXLEN);
+	getInp(s, MAXLEN);
+
+	printf("String: %s\n", s);
+
 	return 0;
 }
