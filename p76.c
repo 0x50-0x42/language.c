@@ -6,6 +6,12 @@ TODO: handle floating-point values as well(it was handled in K&R2 example); this
 
 // TODO: handle floating-point values and negative values
 
+/*
+TODO: do the following in order:
+		1. Handle floating-point numbers;
+		2. Handle negative numbers;
+*/
+
 #include<stdio.h>
 #include<ctype.h>
 
@@ -33,6 +39,8 @@ int main(void) {
 			case '*':
 				break;
 			case '/':
+				break;
+			case '%':
 				break;
 			default:
 				break;
