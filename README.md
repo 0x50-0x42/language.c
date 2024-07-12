@@ -10,6 +10,8 @@
 <br>
 2. <a href="https://clc-wiki.net/wiki/Main_Page">clc-wiki</a>
 <br>
+3. <a href="https://www.free-online-calculator-use.com/infix-to-postfix-converter.html">Infix to Postfix converter</a>
+<br>
 </details>
 
 <details>
