@@ -1,3 +1,12 @@
+/*
+	K&R2 exercise 4.3:
+		given the basic framework, it's straightforward to extend the calculator;
+		add the modulus(%) operator and provisions for negative numbers;
+
+	A tiny exercise for me:
+		also handle floating-point numbers
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<ctype.h>
