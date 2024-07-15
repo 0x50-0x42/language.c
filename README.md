@@ -12,7 +12,7 @@
 <br>
 3. <a href="https://www.free-online-calculator-use.com/infix-to-postfix-converter.html">Infix to Postfix converter</a>
 <br>
-4. <a href="https://paodayag.dev/reverse-polish-notation-js-parser/">RPN calculator</a>
+4. <a href="https://paodayag.dev/reverse-polish-notation-js-parser/">RPN calculator</a>(Gave me the solution to K&R2 exercise 4.3)
 <br>
 </details>
 
