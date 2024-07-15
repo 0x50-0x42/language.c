@@ -3,6 +3,7 @@
 
 #define MAX 100
 
+
 float stack[MAX];
 int top = -1;
 
