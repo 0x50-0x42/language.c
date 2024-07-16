@@ -14,6 +14,8 @@
 <br>
 4. <a href="https://paodayag.dev/reverse-polish-notation-js-parser/">RPN calculator</a>(Gave me the solution to K&R2 exercise 4.3)
 <br>
+5. <a href="https://stackoverflow.com/questions/9752364/how-can-i-evaluate-an-expression-with-sin-cos-and-other-functions"/>Important</a>(Got the idea for solving K&R2 exercise 4.5)
+<br>
 </details>
 
 <details>
