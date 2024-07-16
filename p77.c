@@ -4,9 +4,20 @@
 		add commands to print the top element of the stack without
 		popping, to duplicate it, and to swap the top two elements;
 		add a command to clear the stack;
+
+	
+	The commands that I have made:
+
+	1. t or T -> print the top element;
+	2. d or D -> duplicate the top element;
+	3. s or S -> swap the top two elements;
+	4. c or C -> clear the stack;
+
+	these should be included along with the reverse polish notation(got this idea from gemini);
 */
 
 #include<stdio.h>
+#include<float.h> // for FLT_MIN
 #include<string.h>
 #include<ctype.h>
 #include<stdlib.h>
@@ -17,12 +28,15 @@ void _getline(char[], int);
 void push(float);
 float pop();
 float peek();
+float duplicate();
+float swap();
+void clear();
 
 int main(void) {
 	
 	char rpn[MAXLEN], cmd;
 
-	float op1, op2;
+	float op1, op2, state;
 
 	int sign = 1;
 
@@ -32,9 +46,6 @@ int main(void) {
 
 	// begin evaluation
 	for(int i = 0; rpn[i] != '\0'; i++) {
-
-		printf("> ");
-		scanf(" %c", &cmd);
 
 		switch(rpn[i]) {
 
@@ -80,6 +91,25 @@ int main(void) {
 
 				push((int)op2 % (int)op1);
 
+				break;
+
+			case 't': case 'T':
+				if((state = peek()) != FLT_MIN)
+					printf("top: %f\n", state);
+				break;
+
+			case 'd': case 'D':
+				if((state = duplicate()) == FLT_MIN)
+					puts("stack is empty!");
+				break;
+
+			case 's': case 'S':
+				if((state = swap()) == FLT_MIN)
+					puts("stack is either empty or it has only one element!");
+				break;
+
+			case 'c': case 'C':
+				clear();
 				break;
 
 			default:
