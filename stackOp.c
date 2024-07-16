@@ -9,6 +9,11 @@ int top = -1;
 
 void push(float val) {
 
+	if(top == -1) {
+		puts("stack is empty!");
+		return;
+	}
+
 	if(top == MAX - 1 && stack[top] != 0.0f)
 		puts("stack overflow!");
 
@@ -17,13 +22,20 @@ void push(float val) {
 
 float pop() {
 
-	if(top == -1)
+	if(top == -1) {
+		puts("stack is empty!");
 		return FLT_MIN;
+	}
 
 	return stack[top--];
 }
 
 float peek() {
+
+	if(top == -1) {
+		puts("stack is empty!");
+		return FLT_MIN;
+	}
 
 	return stack[top];
 }
