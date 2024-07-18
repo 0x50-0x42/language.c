@@ -16,6 +16,8 @@
 <br>
 5. <a href="https://stackoverflow.com/questions/9752364/how-can-i-evaluate-an-expression-with-sin-cos-and-other-functions"/>Important</a>(Got the idea for solving K&R2 exercise 4.5)
 <br>
+6. <a href="https://stackoverflow.com/questions/7785764/why-isnt-this-program-for-calculating-sine-of-the-input-working"/>convert value to radian</a>
+<br>
 </details>
 
 <details>
