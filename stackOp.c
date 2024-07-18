@@ -4,55 +4,57 @@
 #define MAX 100
 
 
-float stack[MAX];
+double stack[MAX];
 int top = -1;
 
-void push(float val) {
+void push(double val) {
 
-	if(top == MAX - 1 && stack[top] != 0.0f)
+	if(top == MAX - 1 && stack[top] != 0.0f) {
 		puts("stack overflow!");
+		return;
+	}
 
 	stack[++top] = val;
 }
 
-float pop() {
+double pop() {
 
 	if(top == -1) {
 		puts("stack is empty!");
-		return FLT_MIN;
+		return DBL_MIN;
 	}
 
 	return stack[top--];
 }
 
-float peek() {
+double peek() {
 
 	if(top == -1) {
 		puts("stack is empty!");
-		return FLT_MIN;
+		return DBL_MIN;
 	}
 
 	return stack[top];
 }
 
-float duplicate() {
+double duplicate() {
 	if(top == -1)
-		return FLT_MIN;
-	float val = stack[top];
+		return DBL_MIN;
+	double val = stack[top];
 	stack[++top] = val; // duplicating the top element
-	return FLT_MAX;
+	return DBL_MAX;
 }
 
-float swap() {
+double swap() {
 
 	if(top <= 0)
-		return FLT_MIN;
+		return DBL_MIN;
 
-	float temp = stack[top];
+	double temp = stack[top];
 	stack[top] = stack[top - 1];
 	stack[top - 1] = temp;
 
-	return FLT_MAX;
+	return DBL_MAX;
 }
 
 void clear() {
