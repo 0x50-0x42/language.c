@@ -5,8 +5,10 @@
 #define SIN '!'
 #define EXP '@'
 #define POW '#'
+#define VAR '&'
 
 extern int sign;
+extern int variable;
 
 int getch();
 void ungetch(int);
@@ -88,7 +90,9 @@ int get_op(char s[]) {
 			}
 		}
 
-		if(c >= 65 && c <= 90) { // c is a variable(between A to Z(both inclusive))
+		if(c >= 'A' && c <= 'Z') {
+			variable = c;
+			return VAR;
 		}
 
 		return c;
@@ -104,6 +108,9 @@ int get_op(char s[]) {
 	}
 
 	s[++idx] = '\0';
+
+	if(c != EOF)
+		ungetch(c); // remember the value of c
 
 	return NUM;
 }
