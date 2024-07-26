@@ -51,9 +51,10 @@ int get_op(char s[]) {
 			}
 		}
 
-		if(c == 's' || c == 'S') {
-			if((c = getch()) == 'i' || c == 'I') {
-				if((c = getch()) == 'n' || c == 'N') {
+		// mathematical operators
+		if(c == 's') { // let's not use uppercases
+			if((c = getch()) == 'i') {
+				if((c = getch()) == 'n') {
 					return SIN;
 				}
 
@@ -69,9 +70,9 @@ int get_op(char s[]) {
 			}
 		}
 
-		if(c == 'e' || c == 'E') {
-			if((c = getch()) == 'x' || c == 'X') {
-				if((c = getch()) == 'p' || c == 'P') {
+		if(c == 'e') { // let's not use uppercases
+			if((c = getch()) == 'x') {
+				if((c = getch()) == 'p') {
 					return EXP;
 				}
 
@@ -85,6 +86,9 @@ int get_op(char s[]) {
 				if(c != EOF)
 					ungetch(c);
 			}
+		}
+
+		if(c >= 65 && c <= 90) { // c is a variable(between A to Z(both inclusive))
 		}
 
 		return c;

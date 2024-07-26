@@ -5,6 +5,8 @@
 	add a variable for the most recent printed value;
  */
 
+// uppercase letters are variables
+
 
 #include<stdio.h>
 #include<float.h>
@@ -16,6 +18,7 @@
 #define SIN '!'
 #define EXP '@'
 #define POW '#'
+#define VAR '&'
 
 #define PI 3.14
 #define STRT_ANG 180
@@ -28,6 +31,7 @@ double swap(void);
 void clear(void);
 
 int sign = 1;
+double vars[26];
 
 int get_op(char[]);
 
@@ -50,9 +54,12 @@ int main(void) {
 				break;
 
 			case EXP:
+				push(exp(pop()));
 				break;
 
 			case POW:
+				op = pop();
+				//push(
 				break;
 
 			case 't': case 'T':
@@ -110,6 +117,10 @@ int main(void) {
 			case '%':
 				op = pop();
 				push((int)pop() % (int)op);
+				break;
+
+			case VAR:
+				// handle the variables
 				break;
 		}
 	}
