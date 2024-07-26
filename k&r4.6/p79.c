@@ -7,7 +7,6 @@
 
 // uppercase letters are variables
 
-
 #include<stdio.h>
 #include<float.h>
 #include<math.h>
