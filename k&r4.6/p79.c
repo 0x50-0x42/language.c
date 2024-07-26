@@ -120,7 +120,6 @@ int main(void) {
 				break;
 
 			case VAR:
-				// handle the variables
 				break;
 		}
 	}
