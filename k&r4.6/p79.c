@@ -30,7 +30,7 @@ double duplicate(void);
 double swap(void);
 void clear(void);
 
-int sign = 1;
+int sign = 1, variable;
 double vars[26];
 
 int get_op(char[]);
@@ -50,16 +50,28 @@ int main(void) {
 		switch(type) {
 
 			case SIN:
-				push(sin(pop() * PI / STRT_ANG));
+				val = pop();
+				if((int)val >= 'A' && (int)val <= 'Z')
+					push(sin(vars[(int)val - 'A'] * PI / STRT_ANG));
+				else
+					push(sin(pop() * PI / STRT_ANG));
 				break;
 
 			case EXP:
-				push(exp(pop()));
+				val = pop();
+				if((int)val >= 'A' && (int)val <= 'Z')
+					push(exp(vars[(int)val - 'A']));
+				else
+					push(exp(val));
 				break;
 
 			case POW:
 				op = pop();
-				//push(
+				val = pop();
+				if((int)val >= 'A' && (int)val <= 'Z')
+					push(pow(vars[(int)val - 'A'], op));
+				else
+					push(pow(val, op));
 				break;
 
 			case 't': case 'T':
@@ -67,8 +79,11 @@ int main(void) {
 					puts("aborting!");
 					break;
 				}
-				
-				printf("top: %lf\n", val);
+
+				if((int)val >= 'A' && (int)val <= 'Z')
+					printf("top: %lf\n", vars[(int)val - 'A']);
+				else
+					printf("top: %lf\n", val);
 				break;
 
 			case 'd': case 'D':
@@ -95,36 +110,71 @@ int main(void) {
 				push(sign * atof(rpn));
 				sign = 1;
 				break;
+
+			case VAR:
+				push(variable);
+				break;
 				
 			case '+':
-				push(pop() + pop());
+				op = pop();
+				val = pop();
+				if((int)val >= 'A' && (int)val <= 'Z')
+					push(vars[(int)val - 'A'] + op);
+				else
+					push(val + op);
 				break;
 
 			case '-':
 				op = pop();
-				push(pop() - op);
+				val = pop();
+				if((int)val >= 'A' && (int)val <= 'Z')
+					push(vars[(int)val - 'A'] - op);
+				else
+					push(val - op);
 				break;
 
 			case '*':
-				push(pop() * pop());
+				op = pop();
+				val = pop();
+				if((int)val >= 'A' && (int)val <= 'Z')
+					push(vars[(int)val - 'A'] * op);
+				else
+					push(val * op);
 				break;
 
 			case '/':
 				op = pop();
-				push(pop() / op);
+				val = pop();
+				if((int)val >= 'A' && (int)val <= 'Z')
+					push(vars[(int)val - 'A'] / op);
+
+				else
+					push(val / op);
 				break;
 
 			case '%':
 				op = pop();
-				push((int)pop() % (int)op);
+				val = pop();
+				if((int)val >= 'A' && (int)val <= 'Z')
+					push((int)vars[(int)val - 'A'] % (int)op);
+				else
+					push((int)val % (int)op);
 				break;
 
-			case VAR:
+			case '=':
+				op = pop();
+				val = pop();
+				vars[(int)val - 'A'] = op;
+				push(val);
 				break;
 		}
 	}
 
-	printf("Result: %.3f\n", peek());
+	if((int)(val = peek()) >= 'A' && (int)val <= 'Z')
+		printf("%.3lf\n", vars[(int)val - 'A']);
+
+	else
+		printf("Result: %.3lf\n", val);
 
 	return 0;
 }
