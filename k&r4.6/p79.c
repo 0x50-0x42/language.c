@@ -54,7 +54,7 @@ int main(void) {
 				if((int)val >= 'A' && (int)val <= 'Z')
 					push(sin(vars[(int)val - 'A'] * PI / STRT_ANG));
 				else
-					push(sin(pop() * PI / STRT_ANG));
+					push(sin(val * PI / STRT_ANG));
 				break;
 
 			case EXP:
@@ -68,10 +68,20 @@ int main(void) {
 			case POW:
 				op = pop();
 				val = pop();
-				if((int)val >= 'A' && (int)val <= 'Z')
-					push(pow(vars[(int)val - 'A'], op));
-				else
-					push(pow(val, op));
+				if((int)val >= 'A' && (int)val <= 'Z') {
+					if((int)op >= 'A' && (int)op <= 'Z')
+						push(pow(vars[(int)val - 'A'], vars[(int)op - 'A']));
+					else
+						push(pow(vars[(int)val - 'A'], op));
+				}
+
+				else {
+					if((int)op >= 'A' && (int)op <= 'Z')
+						push(pow(val, vars[(int)op - 'A']));
+					else
+						push(pow(val, op));
+				}
+
 				break;
 
 			case 't': case 'T':
@@ -118,54 +128,108 @@ int main(void) {
 			case '+':
 				op = pop();
 				val = pop();
-				if((int)val >= 'A' && (int)val <= 'Z')
-					push(vars[(int)val - 'A'] + op);
-				else
-					push(val + op);
+				if((int)val >= 'A' && (int)val <= 'Z') {
+					if((int)op >= 'A' && (int)op <= 'Z')
+						push(vars[(int)val - 'A'] + vars[(int)op - 'A']);
+					else
+						push(vars[(int)val - 'A'] + op);
+				}
+
+				else {
+					if((int)op >= 'A' && (int)op <= 'Z')
+						push(val + vars[(int)op - 'A']);
+					else
+						push(val + op);
+				}
+
 				break;
 
 			case '-':
 				op = pop();
 				val = pop();
-				if((int)val >= 'A' && (int)val <= 'Z')
-					push(vars[(int)val - 'A'] - op);
-				else
-					push(val - op);
+				if((int)val >= 'A' && (int)val <= 'Z') {
+					if((int)op >= 'A' && (int)op <= 'Z')
+						push(vars[(int)val - 'A'] - vars[(int)op - 'A']);
+					else
+						push(vars[(int)val - 'A'] - op);
+				}
+
+				else {
+					if((int)op >= 'A' && (int)op <= 'Z')
+						push(val - vars[(int)op - 'A']);
+					else
+						push(val - op);
+				}
+
 				break;
 
 			case '*':
 				op = pop();
 				val = pop();
-				if((int)val >= 'A' && (int)val <= 'Z')
-					push(vars[(int)val - 'A'] * op);
-				else
-					push(val * op);
+				if((int)val >= 'A' && (int)val <= 'Z') {
+					if((int)op >= 'A' && (int)op <= 'Z')
+						push(vars[(int)val - 'A'] * vars[(int)op - 'A']);
+					else
+						push(vars[(int)val - 'A'] * op);
+				}
+
+				else {
+					if((int)op >= 'A' && (int)op <= 'Z')
+						push(val * vars[(int)op - 'A']);
+					else
+						push(val * op);
+				}
+
 				break;
 
 			case '/':
 				op = pop();
 				val = pop();
-				if((int)val >= 'A' && (int)val <= 'Z')
-					push(vars[(int)val - 'A'] / op);
+				if((int)val >= 'A' && (int)val <= 'Z') {
+					if((int)op >= 'A' && (int)op <= 'Z')
+						push(vars[(int)val - 'A'] / vars[(int)op - 'A']);
+					else
+						push(vars[(int)val - 'A'] / op);
+				}
 
-				else
-					push(val / op);
+				else {
+					if((int)op >= 'A' && (int)op <= 'Z')
+						push(val / vars[(int)op - 'A']);
+					else
+						push(val / op);
+				}
+
 				break;
 
 			case '%':
 				op = pop();
 				val = pop();
-				if((int)val >= 'A' && (int)val <= 'Z')
-					push((int)vars[(int)val - 'A'] % (int)op);
-				else
-					push((int)val % (int)op);
+				if((int)val >= 'A' && (int)val <= 'Z') {
+					if((int)op >= 'A' && (int)op <= 'Z')
+						push((int)vars[(int)val - 'A'] % (int)vars[(int)op - 'A']);
+					else
+						push((int)vars[(int)val - 'A'] % (int)op);
+				}
+				else {
+					if((int)op >= 'A' && (int)op <= 'Z')
+						push((int)val % (int)vars[(int)op - 'A']);
+					else
+						push((int)val % (int)op);
+				}
+
 				break;
 
 			case '=':
 				op = pop();
 				val = pop();
-				vars[(int)val - 'A'] = op;
+
+				if((int)op >= 'A' && (int)op <= 'Z')
+					vars[(int)val - 'A'] = vars[(int)op - 'A'];
+				else
+					vars[(int)val - 'A'] = op;
+
 				push(val);
+
 				break;
 		}
 	}
