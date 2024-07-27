@@ -2,8 +2,9 @@
 	write a routine ungets(s) that will push back an entire string onto the input;
 	should ungets() know about buf and bufp or should it just use ungetch()?
 
-	storing the string by calling ungetch() in ungets() will store it in the buffer
-	but when retrieving it using getch() it will be retrieved in reverse order(i.e. from the last character)
+	ungets() should use ungetch() for storing a string; but the string will need to be
+	stored in reverse order;
+	since, ungets() is using ungetch(), so it neednot know about buffer and bufp
 */
 
 
