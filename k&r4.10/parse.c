@@ -5,7 +5,7 @@
 #define SIN '$'
 #define COS '!'
 #define EXP '#'
-#define INV
+#define INV '~'
 
 extern int i, sign;
 

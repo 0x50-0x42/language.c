@@ -14,6 +14,7 @@
 #define EXP '#'
 #define PI 3.14
 #define STRT_ANGL 180
+#define INV '~'
 
 void push(double);
 double pop(void);
@@ -22,7 +23,7 @@ double duplicate(void);
 double swap(void);
 void clear(void);
 int getLine(char[], int); // get an entire line of input
-int parse(char[], int); // parse the input
+int parse(char[], char[], int); // parse the input
 
 int i, sign = 1;
 
@@ -35,7 +36,7 @@ int main(void) {
 
 	int type;
 
-	double op1 = 0.0l, op2 = 0.0l;
+	double op1 = 0.0, op2 = 0.0, val = 0.0;
 
 	printf("enter a postfix expression: ");
 
@@ -48,12 +49,22 @@ int main(void) {
 		switch(type) {
 
 			case 's': case 'S': // swap
+				if((val = swap()) == DBL_MAX)
+					puts("swap successful!");
 				break;
 
 			case 'd': case 'D': // duplicate
+				if((val = duplicate()) == DBL_MAX)
+					puts("duplication successful!");
 				break;
 
 			case 't': case 'T': // view top
+				if((val = peek()) != DBL_MAX)
+					printf("top: %lf\n", val);
+				break;
+
+			case 'c': case 'C':
+				clear();
 				break;
 
 			case SIN:
@@ -221,6 +232,8 @@ int main(void) {
 				break;
 		}
 	}
+
+	printf("Result: %.3lf\n", peek());
 
 	return 0;
 }
