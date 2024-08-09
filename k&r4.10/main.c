@@ -3,13 +3,17 @@
 */
 
 #include<stdio.h>
+#include<math.h>
 #include<stdlib.h>
 #include<float.h>
 
 #define MAXLEN 1000
 #define NUM '0'
 #define SIN '$'
+#define COS '!'
 #define EXP '#'
+#define PI 3.14
+#define STRT_ANGL 180
 
 void push(double);
 double pop(void);
@@ -29,6 +33,8 @@ int main(void) {
 	char rpn[MAXLEN];
 	char operand[MAXLEN];
 
+	int type;
+
 	double op1 = 0.0l, op2 = 0.0l;
 
 	printf("enter a postfix expression: ");
@@ -37,71 +43,183 @@ int main(void) {
 
 	int len = getLine(rpn, MAXLEN);
 
-	while(parse(rpn, operand, len) != something) {
+	while((type = parse(rpn, operand, len)) != EOF) {
 
-		case SIN:
-			break;
+		switch(type) {
 
-		case EXP:
-			break;
+			case 's': case 'S': // swap
+				break;
 
-		case NUM:
-			push(sign * atof(operand));
-			sign = 1;
-			break;
+			case 'd': case 'D': // duplicate
+				break;
 
-		case '+':
-			op1 = pop();
-			op2 = pop();
+			case 't': case 'T': // view top
+				break;
 
-			if((int)op1 >= 'A' && (int)op1 <= 'Z') { // if op1 is one of the alphabets(in this case, we will call them variables)
-				if((int)op2 >= 'A' && (int)op2 <= 'Z')
-					push(variable[(int)op1 - 'A'] + variable[(int)op2 - 'A']);
+			case SIN:
+				op1 = pop();
 
+				if((int)op1 >= 'A' && (int)op1 <= 'Z')
+					push(sin(variable[(int)op1 - 'A'] * PI / STRT_ANGL));
 				else
-					push(variable[(int)op1 - 'A'] + op2);
-			}
+					push(op1 * PI / STRT_ANGL);
 
-			else {
-				if((int)op2 >= 'A' && (int)op2 <= 'Z')
-					push(op1 + variable[(int)op2 - 'A']);
+				break;
+
+			case EXP:
+				op1 = pop();
+
+				if((int)op1 >= 'A' && (int)op1 <= 'Z')
+					push(exp(variable[(int)op1 - 'A']));
 				else
-					push(op1 + op2);
-			}
+					push(exp(op1));
 
-			break;
+				break;
 
-		case '-':
-			op1 = pop();
-			op2 = pop();
+			case NUM:
+				push(sign * atof(operand));
+				sign = 1;
 
-			if((int)op1 >= 'A' && (int)op1 <= 'Z') {
-				if((int)op2 >= 'A' && (int)op2 <= 'Z')
-					push(variable[(int)op2 - 'A'] - variable[(int)op1 - 'A']);
+				break;
+
+			case '+':
+				op1 = pop();
+				op2 = pop();
+
+				if((int)op1 >= 'A' && (int)op1 <= 'Z') { // if op1 is one of the alphabets(in this case, we will call them variables)
+					if((int)op2 >= 'A' && (int)op2 <= 'Z')
+						push(variable[(int)op1 - 'A'] + variable[(int)op2 - 'A']);
+
+					else
+						push(variable[(int)op1 - 'A'] + op2);
+				}
+
+				else {
+					if((int)op2 >= 'A' && (int)op2 <= 'Z')
+						push(op1 + variable[(int)op2 - 'A']);
+					else
+						push(op1 + op2);
+				}
+
+				break;
+
+			case '-':
+				op1 = pop();
+				op2 = pop();
+
+				if((int)op1 >= 'A' && (int)op1 <= 'Z') {
+					if((int)op2 >= 'A' && (int)op2 <= 'Z')
+						push(variable[(int)op2 - 'A'] - variable[(int)op1 - 'A']);
+					else
+						push(op2 - variable[(int)op1 - 'A']);
+				}
+
+				else {
+					if((int)op2 >= 'A' && (int)op2 <= 'Z')
+						push(variable[(int)op2 - 'A'] - op1);
+					else
+						push(op2 - op1);
+				}
+
+				break;
+
+			case '*':
+				op1 = pop();
+				op2 = pop();
+
+				if((int)op1 >= 'A' && (int)op1 <= 'Z') {
+					if((int)op2 >= 'A' && (int)op2 <= 'Z')
+						push(variable[(int)op1 - 'A'] * variable[(int)op2 - 'A']);
+					else
+						push(variable[(int)op1 - 'A'] * op2);
+
+				}
+
+				else {
+					if((int)op2 >= 'A' && (int)op2 <= 'Z')
+						push(op1 * variable[(int)op2 - 'A']);
+					else
+						push(op1 * op2);
+				}
+
+				break;
+
+			case '%':
+				op1 = pop();
+				op2 = pop();
+
+				if((int)op1 >= 'A' && (int)op1 <= 'Z') {
+					if((int)op2 >= 'A' && (int)op2 <= 'Z')
+						push((int)variable[(int)op2 - 'A'] % (int)variable[(int)op1 - 'A']);
+					else
+						push((int)op2 % (int)variable[(int)op1 - 'A']);
+				}
+
+				else {
+					if((int)op2 >= 'A' && (int)op2 <= 'Z')
+						push((int)variable[(int)op2 - 'A'] % (int)op1);
+					else
+						push((int)op2 % (int)op1);
+				}
+
+				break;
+
+			case '/':
+				op1 = pop();
+				op2 = pop();
+
+				if((int)op1 >= 'A' && (int)op1 <= 'Z') {
+					if((int)op2 >= 'A' && (int)op2 <= 'Z')
+						push(variable[(int)op2 - 'A'] / variable[(int)op1 - 'A']);
+					else
+						push(op2 / variable[(int)op1 - 'A']);
+				}
+
+				else {
+					if((int)op2 >= 'A' && (int)op2 <= 'Z')
+						push(variable[(int)op2 - 'A'] / op1);
+					else
+						push(op2 / op1);
+				}
+
+				break;
+
+			case '^':
+				op1 = pop();
+				op2 = pop();
+
+				if((int)op1 >= 'A' && (int)op1 <= 'Z') {
+					if((int)op2 >= 'A' && (int)op2 <= 'Z')
+						push(pow(variable[(int)op2 - 'A'], variable[(int)op1 - 'A']));
+					else
+						push(pow(op2, variable[(int)op1 - 'A']));
+				}
+
+				else {
+					if((int)op2 >= 'A' && (int)op2 <= 'Z')
+						push(pow(variable[(int)op2 - 'A'], op1));
+					else
+						push(pow(op2, op1));
+				}
+
+				break;
+
+			case '=': // for variables
+				op1 = pop();
+				op2 = pop();
+
+				if(op1 >= 'A' && (int)op1 <= 'Z')
+					variable[(int)op2 - 'A'] = variable[(int)op1 - 'A'];
 				else
-					push(op2 - variable[(int)op1 - 'A']);
-			}
-			
-			else {
-				if((int)op2 >= 'A' && (int)op2 <= 'Z')
-					push(variable[(int)op2 - 'A'] - op1);
-				else
-					push(op2 - op1);
-			}
+					variable[(int)op2 - 'A'] = op1;
 
-			break;
+				push(op2);
 
-		case '*':
-			break;
+				break;
 
-		case '/':
-			break;
-
-		case '^':
-			break;
-
-		case '=': // for variables
-			break;
+			default: // something invalid
+				break;
+		}
 	}
 
 	return 0;

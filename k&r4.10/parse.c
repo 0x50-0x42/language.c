@@ -3,7 +3,9 @@
 
 #define NUM '0'
 #define SIN '$'
+#define COS '!'
 #define EXP '#'
+#define INV
 
 extern int i, sign;
 
@@ -54,19 +56,69 @@ int parse(char s[], char operand[], int len) {
 				}
 			}
 
-			if(s[i] == 's' || s[i] == 'S') { // for sin
+			if(s[i] == 's') { // for sin
 				int j = i;
 				j++;
-				if(s[j] == 'i' || s[j] == 'I') {
+				if(s[j] == 'i') {
 					j++;
-					if(s[j] == 'n' || s[j] == 'N') {
-						i = j;
+					if(s[j] == 'n') {
+						i = j + 1;
 						return SIN;
 					}
+
+					i = j;
+
+					return INV; // invalid
 				}
+
+				i = j;
+
+				return s[i];
+			}
+
+			if(s[i] == 'c') { // for cos
+				int j = i;
+				j++;
+				if(s[j] == 'o') {
+					j++;
+					if(s[j] == 's') {
+						i = j;
+						return COS;
+					}
+
+					i = j;
+
+					return INV; // invalid
+				}
+
+				i = j;
+
+				return s[i];
+			}
+
+			if(s[i] == 'e') { // for exp
+				int j = i;
+				j++;
+				if(s[j] == 'x') {
+					j++;
+					if(s[j] == 'p') {
+						i = j;
+						return EXP;
+					}
+
+					i = j;
+
+					return INV; // invalid
+				}
+
+				i = j;
+
+				return INV; // invalid
 			}
 		}
 
 		i++;
 	}
+
+	return EOF;
 }
