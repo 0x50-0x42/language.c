@@ -76,6 +76,16 @@ int main(void) {
 
 				break;
 
+			case COS:
+				op1 = pop();
+
+				if((int)op1 >= 'A' && (int)op1 <= 'Z')
+					push(cos(variable[(int)op1 - 'A'] * PI / STRT_ANGL));
+				else
+					push(cos(op1 * PI / STRT_ANGL));
+
+				break;
+
 			case EXP:
 				op1 = pop();
 
