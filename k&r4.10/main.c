@@ -12,8 +12,9 @@
 #define SIN '$'
 #define COS '!'
 #define EXP '#'
+#define VAR '@'
 #define PI 3.14
-#define STRT_ANGL 180
+#define STRT_ANGL 180.0
 #define INV '~'
 
 void push(double);
@@ -25,7 +26,7 @@ void clear(void);
 int getLine(char[], int); // get an entire line of input
 int parse(char[], char[], int); // parse the input
 
-int i, sign = 1;
+int i, sign = 1, var = '\0';
 
 double variable[26];
 
@@ -39,8 +40,6 @@ int main(void) {
 	double op1 = 0.0, op2 = 0.0, val = 0.0;
 
 	printf("enter a postfix expression: ");
-
-	printf("Expression: %s\n", rpn);
 
 	int len = getLine(rpn, MAXLEN);
 
@@ -73,7 +72,7 @@ int main(void) {
 				if((int)op1 >= 'A' && (int)op1 <= 'Z')
 					push(sin(variable[(int)op1 - 'A'] * PI / STRT_ANGL));
 				else
-					push(op1 * PI / STRT_ANGL);
+					push(sin(op1 * PI / STRT_ANGL));
 
 				break;
 
@@ -228,12 +227,21 @@ int main(void) {
 
 				break;
 
+			case VAR:
+				push(var);
+				break;
+
 			default: // something invalid
 				break;
 		}
 	}
 
-	printf("Result: %.3lf\n", peek());
+	val = peek();
+
+	if((int)val >= 'A' && (int)val <= 'Z')
+		printf("Result: %.3lf\n", variable[(int)val - 'A']);
+	else
+		printf("Result: %.3lf\n", val);
 
 	return 0;
 }
