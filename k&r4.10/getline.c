@@ -1,5 +1,6 @@
 #include<stdio.h>
 
+
 int getLine(char s[], int lim) {
 	int idx = 0, c;
 
