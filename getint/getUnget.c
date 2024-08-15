@@ -1,5 +1,5 @@
 #include<stdio.h>
-#define BUFSZ 100
+#include "def.h"
 
 char buf[BUFSZ];
 int bufp = -1;

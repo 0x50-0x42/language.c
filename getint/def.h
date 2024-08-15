@@ -4,6 +4,7 @@ int getint(int*);
 #endif
 
 #define SIZE 1000
+#define BUFSZ 100
 
 #ifdef _DEF_
 
