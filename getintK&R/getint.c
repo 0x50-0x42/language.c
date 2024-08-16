@@ -11,7 +11,7 @@ int getint(int *val) {
 	// skip whitespaces
 	while(isspace(c = getch()))
 		;
-
+	// if c is any character other than a digit, a '+', a '-' and EOF, then the for loop in main will repeat until n == SIZE
 	if(!isdigit(c) && c != '+' && c != '-' && c != EOF) {
 		ungetch(c);
 		return 0;
