@@ -1,5 +1,5 @@
 /*
-   Simulating malloc(): rudimentary(from K&R2)
+   Simulating malloc(): rudimentary(from K&R2) -> tried myself(haven't provided some checks)
  */
 
 #include<stdio.h>
