@@ -5,7 +5,9 @@ int main(void) {
 
 	char string[SIZE];
 
-	int num = 569012;
+	int num = -569012;
+
+	printf("Number: %d\n", num);
 
 	itoa(num, string);
 
