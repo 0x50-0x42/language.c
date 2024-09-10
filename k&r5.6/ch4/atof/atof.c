@@ -1,4 +1,16 @@
+#include<ctype.h>
+
 double _atof(char *s) {
+
+	int sign = 1;
+
+	while(isspace(*s))
+		s++;
+
+	if(*s == '-') {
+		sign *= -1;
+		s++;
+	}
 
 	int num1 = 0, num2 = 0;
 
@@ -15,5 +27,5 @@ double _atof(char *s) {
 		mul *= 0.1;
 	}
 
-	return (num1 + num2 * mul);
+	return sign * (num1 + num2 * mul);
 }
