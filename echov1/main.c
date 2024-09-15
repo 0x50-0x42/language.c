@@ -3,7 +3,7 @@
 int main(int argc, char *argv[]) {
 
 	if(argc == 1) {
-		puts("usage: echo [text]");
+		puts("Usage: echo [text]");
 		return 1;
 	}
 
