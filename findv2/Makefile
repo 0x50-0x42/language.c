@@ -1,5 +1,6 @@
 files=main.c getline.c
 
+
 grep: $(files)
 	gcc -g $(files) -o grep
 
