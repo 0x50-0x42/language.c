@@ -2,49 +2,71 @@
 #include<stdlib.h>
 
 #include "def.h"
-#include "constants.h"
+//#include "constants.h"
+
+#define NUM '0'
 
 int sign = 1;
+unsigned idx = 0;
 
 int main(int argc, char *argv[]) {
 
 	int type;
 
+	int operand;
+
+	if(argc == 1) {
+		puts("Usage: expr [reverse polish notation]");
+		return 1;
+	}
+	printf("argc: %d\n", argc);
+	argc--;
+
 	char number[SIZE];
-	
+
 	argv++;
 
-	// handle the arguments
-	while((type = parse(*argv, number)) && argc != 1) {
+	while(argc != 0) {
+		while((type = parse(*argv, number)) != '\0') {
+			switch(type) {
+				case NUM:
+					push(sign * atof(number));
+					sign = 1;
+					break;
 
-		switch(type) {
+				case '+':
+					push(pop() + pop());
+					break;
 
-			case NUM:
-				push(sign * atof(number));
-				break;
+				case '-':
+					operand = pop();
+					push(pop() - operand);
+					break;
 
-			case '-':
-				break;
+				case '/':
+					operand = pop();
+					push(pop() - operand);
+					break;
 
-			case '+':
-				break;
+				case '*':
+					push(pop() * pop());
+					break;
 
-			case '/':
-				break;
+				case '%':
+					operand = pop();
+					push((int)pop() -(int)operand);
+					break;
 
-			case '*':
-				break;
-
-			case '%':
-				break;
-
-			default:
-				break;
-
+				default:
+					break;
+			}
 		}
-
 		argc--;
+		argv++;
+		idx = 0;
 	}
+
+	printf("Result: %.3f\n", peek());
 
 	return 0;
 }

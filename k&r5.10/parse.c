@@ -1,57 +1,57 @@
 #include<stdio.h>
-#include<cypte.h>
+#include<ctype.h>
 
-#include "constants.h"
+//#include "constants.h"
+
+#define NUM '0'
 
 int getch();
 void ungetch(int);
 
 extern int sign;
+extern unsigned idx;
 
 int parse(char *expr, char* number) {
-	while(isspace(*expr)) // ignore any whitespaces
-		expr++;
-	if(isdigit(*expr)) {
-		while(isdigit(*expr))
-			*number++ = *expr++;
-		if(*expr == '.') {
-			*number++ = *expr++;
-			while(isdigit(*expr))
-				*number++ = *expr++;
-			*number = '\0';
 
-			ungetch(*expr); // storing it to input buffer
-			
+	// ignore whitespaces, tabs and newlines
+	while(isspace(expr[idx]))
+		idx++;
+
+	// check if digit
+	if(isdigit(expr[idx])) {
+		while(isdigit(expr[idx]))
+			*number++ = expr[idx++];
+		if(expr[idx] == '.') {
+			*number++ = expr[idx++];
+			while(isdigit(expr[idx]))
+				*number++ = expr[idx++];
 		}
 
-		else {
-			ungetch(*expr);
-		}
+		*number = '\0';
 
 		return NUM;
 	}
 
+	// if not a digit, then check for other symbols and negative numbers
 	else {
-		if(*expr == '-') {
-			// check if a digits follows it
-			if(isdigit(*(expr + 1))) {
+		if(expr[idx] == '-') {
+			if(isdigit(expr[idx + 1])) {
 				sign *= -1;
-				expr++;
-
-				while(isdigit(*expr))
-					*number++ = *expr++;
-				
-				if(*expr == '.') {
-					*number++ = *expr++;
-					while(isdigit(*expr))
-						*number++ = *expr++;
-
-					ungetch(*expr);
+				while(isdigit(expr[idx]))
+					*number++ = expr[idx++];
+				if(expr[idx] == '.') {
+					*number++ = expr[idx++];
+					while(isdigit(expr[idx]))
+						*number++ = expr[idx++];
 				}
 
-				else {
-				}
+				*number = '\0';
+
+				return NUM;
 			}
 		}
+
 	}
+
+	return expr[idx++];
 }

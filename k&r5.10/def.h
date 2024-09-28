@@ -1,4 +1,7 @@
 #define SIZE 1000
 
-int _getline(char*, int);
-int parse(char**, char*);
+int parse(char*, char*);
+
+void push(double);
+double pop();
+double peek();
