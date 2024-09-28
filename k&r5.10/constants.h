@@ -1,0 +1,5 @@
+#define NUM '0'
+#define SIN '$'
+#define COS '('
+#define TAN '#'
+#define EXP '@'
