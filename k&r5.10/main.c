@@ -1,8 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<math.h>
 
 #include "def.h"
-//#include "constants.h"
+#include "constants.h"
 
 #define NUM '0'
 
@@ -13,7 +14,7 @@ int main(int argc, char *argv[]) {
 
 	int type;
 
-	int operand;
+	double operand;
 
 	if(argc == 1) {
 		puts("Usage: expr [reverse polish notation]");
@@ -45,7 +46,7 @@ int main(int argc, char *argv[]) {
 
 				case '/':
 					operand = pop();
-					push(pop() - operand);
+					push(pop() / operand);
 					break;
 
 				case '*':
@@ -54,7 +55,28 @@ int main(int argc, char *argv[]) {
 
 				case '%':
 					operand = pop();
-					push((int)pop() -(int)operand);
+					push((int)pop() % (int)operand);
+					break;
+
+				case '^':
+					operand = pop();
+					push(pow(pop(), operand));
+					break;
+
+				case SIN:
+					push(sin(pop() * PI / STRT_ANGL));
+					break;
+
+				case COS:
+					push(cos(pop() * PI / STRT_ANGL));
+					break;
+
+				case TAN:
+					push(tan(pop() * PI / STRT_ANGL));
+					break;
+
+				case EXP:
+					push(exp(pop()));
 					break;
 
 				default:
