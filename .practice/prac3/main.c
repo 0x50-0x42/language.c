@@ -2,8 +2,6 @@
 
 #include "def.h"
 
-#define TABSTOP 8 // 8 whitespaces/blanks
-
 int main(void) {
 	char string[SIZE];
 
