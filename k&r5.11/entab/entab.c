@@ -1,8 +1,6 @@
 #include<stdio.h>
 #include<ctype.h>
 
-#define DFLT_TBSTP 8   // the default tabstop
-
 void entab(char *string, int *tabstops, unsigned len) {
 
 	unsigned idx = 0, spaces = 0, chars = 0;

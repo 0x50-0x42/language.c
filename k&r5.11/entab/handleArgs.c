@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 
 extern unsigned tabs;
 
@@ -13,7 +14,7 @@ void handleArgs(int *argNum, char*** argVec) {
 					puts("OPTION:");
 					puts("-t N      have tabs N characters apart.");
 					puts("-h        display this help and exit.");
-					return;
+					exit(0);
 
 				case 't':
 					if(tabs) {

@@ -2,6 +2,8 @@
 #include<string.h>
 #include<ctype.h>
 
+#define DFLT_TBSTP 8   // the default tabstop
+
 #include "def.h"
 
 unsigned tabs = 0; // flag
@@ -63,10 +65,15 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
-	if(tbstp - tabstops == 0) { // no tabstop value was passed by the user
+	if(tbstp - tabstops == 0) { // no tabstop values were passed by the user
 		if(tabs == 1) {
 			puts("-t option requires an integer argument");
 			return 1;
+		}
+
+		else {
+			tabstops[0] = DFLT_TBSTP;  // default to 8 spaces
+			len = 1;
 		}
 	}
 
