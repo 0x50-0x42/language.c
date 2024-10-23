@@ -6,6 +6,7 @@
    ~ only replace the tabs by (tabstops - no. of printed character) number of spaces.
  */
 
+
 #include<stdio.h>
 
 void detab(char *string, int *tabstops, int len) {

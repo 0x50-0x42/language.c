@@ -1,5 +1,6 @@
 #include<stdio.h>
 
+
 int _getline(char *s, int lim) {
 
 	int c;

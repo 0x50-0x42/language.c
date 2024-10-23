@@ -1,6 +1,5 @@
-// RUDIMENTARY ARGUMENT PARSING
-
 #include<stdio.h>
+#include<string.h>
 #include<stdlib.h>
 #include<ctype.h>
 
@@ -21,35 +20,27 @@ int main(int argc, char*argv[]) {
 
 	// handle the options(rudimentary)
 	while(argc > 1 && **argv == '-') {
+
 		++*argv;
+
 		while(**argv != '\0') {
 			switch(**argv) {
 				case 'h':
-
 					if(help == 1 || tabs == 1) {
-						puts("invalid option");
+						puts("invalid option!");
 						return 1;
 					}
 
-					help = 1;
-					break;
+					Help();
 
 				case 't':
-					
 					if(help == 1 || tabs == 1) {
-						puts("invalid option");
+						puts("invalid option!");
 						return 1;
 					}
 
 					tabs = 1;
-					break;
 
-				case '-':
-					if(help == 1 || stin == 1) {
-						Help();
-					}
-
-					stin = 1;
 					break;
 
 				default:
@@ -59,12 +50,59 @@ int main(int argc, char*argv[]) {
 			++*argv;
 		}
 
+		argv++; // move to the next pointer
 		argc--;
-		argv++;
 	}
 
-
 	// store the tabstops
+	unsigned tabstops[100];
+	unsigned *tbstp = tabstops;
+	unsigned num = 0;
+
+	if(tabs == 1) { // there are tabs
+		if(argc == 0) {
+			puts("\'-t\' requires arguments");
+			return 1;
+		}
+
+		while(argc > 0 && isdigit(**argv)) {
+
+			while(**argv != '\0') {
+				if(isdigit(**argv))
+					num = num * 10 + (**argv) - '0';
+				else {
+					*tbstp++ = num;
+					num = 0;
+				}
+
+				++*argv;
+			}
+
+			if(num)
+				*tbstp++ = num;
+
+			num = 0;
+			argv++;
+			argc--;
+		}
+	}
+
+	if(tbstp - tabstops == 0) {
+		puts("\'-t\' requires arguments");
+		return 1;
+	}
+
+	char string[SIZE];
+
+	if(argc == 1) {
+		strcpy(string, *argv);
+	}
+
+	else {
+		_getline(string, SIZE);
+	}
+
+	detab(string, tabstops, tbstp - tabstops);
 	
 	return 0;
 }
