@@ -1,3 +1,5 @@
+// RUDIMENTARY ARGUMENT PARSING
+
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -19,7 +21,7 @@ int main(int argc, char*argv[]) {
 
 
 	// handle the options(rudimentary)
-	while(argc > 1 && **argv == '-') {
+	while(argc >= 1 && **argv == '-') {
 
 		++*argv;
 
@@ -47,6 +49,9 @@ int main(int argc, char*argv[]) {
 					Help();
 			}
 
+			if(help == 0 && tabs == 0)
+				stin = 1;
+
 			++*argv;
 		}
 
@@ -60,10 +65,6 @@ int main(int argc, char*argv[]) {
 	unsigned num = 0;
 
 	if(tabs == 1) { // there are tabs
-		if(argc == 0) {
-			puts("\'-t\' requires arguments");
-			return 1;
-		}
 
 		while(argc > 0 && isdigit(**argv)) {
 
@@ -85,22 +86,21 @@ int main(int argc, char*argv[]) {
 			argv++;
 			argc--;
 		}
+
+		if(tbstp - tabstops == 0) {
+			puts("\'-t\' requires arguments");
+			return 1;
+		}
 	}
 
-	if(tbstp - tabstops == 0) {
-		puts("\'-t\' requires arguments");
-		return 1;
-	}
 
 	char string[SIZE];
 
-	if(argc == 1) {
+	if(argc == 1 && stin != 1)
 		strcpy(string, *argv);
-	}
 
-	else {
+	else
 		_getline(string, SIZE);
-	}
 
 	detab(string, tabstops, tbstp - tabstops);
 	

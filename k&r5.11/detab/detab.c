@@ -9,9 +9,16 @@
 
 #include<stdio.h>
 
+#define TABSTOP 8
+
 void detab(char *string, int *tabstops, int len) {
 
 	unsigned idx = 0, chars = 0;
+
+	if(len == 0) {
+		tabstops[0] = TABSTOP;
+		len++;
+	}
 
 	while(*string != '\0') {
 
