@@ -40,6 +40,9 @@ int main(int argc, char *argv[]) {
 
 	_getline(string, SIZE);
 
+	if(tabstop == 0) // value for tabstop wasn't provided in the argument
+		tabstop = 8; // set to default tabstop value
+
 	detab(string + colM, tabstop);
 
 	return 0;
