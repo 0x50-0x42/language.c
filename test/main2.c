@@ -1,3 +1,10 @@
+/*
+   Took the idea from here:
+
+   https://github.com/lattera/glibc/blob/master/string/strcmp.c
+
+ */
+
 #include<stdio.h>
 #include<string.h>
 
