@@ -17,6 +17,8 @@
 5. <a href="https://stackoverflow.com/questions/9752364/how-can-i-evaluate-an-expression-with-sin-cos-and-other-functions"/>Important</a>(Got the idea for solving K&R2 exercise 4.5)
 <br>
 6. <a href="https://stackoverflow.com/questions/7785764/why-isnt-this-program-for-calculating-sine-of-the-input-working"/>convert value to radian</a>
+7. <a href="https://onlinestringtools.com/sort-strings">Sort strings numerically and lexicographically</a>
+8. <a href="https://www.online-utility.org/text/sort.jsp">Sort strings by ignoring case</a>
 <br>
 </details>
 
