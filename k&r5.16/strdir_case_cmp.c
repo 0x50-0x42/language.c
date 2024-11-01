@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<ctype.h>
+
+int strdir_case_cmp(void*vec1, void*vec2) {
+	char*s1 = (char*)vec1;
+	char*s2 = (char*)vec2;
+
+	if(*s1 == '\0' || *s2 == '\0') {
+		if(*s1 == '\0') {
+			while((*s2 > ' ' && *s2 < '0') || (*s2 > '9' && *s2 < 'A') || (*s2 > 'Z' && *s2 < 'a') || (*s2 > 'z'))
+				s2++;
+		}
+
+		if(*s2 == '\0') {
+			while((*s1 > ' ' && *s1 < '0') || (*s1 > '9' && *s1 < 'A') || (*s1 > 'Z' && *s1 < 'a') || (*s1 > 'z'))
+				s1++;
+		}
+
+		return tolower(*s1) - tolower(*s2);
+	}
+
+	while(tolower(*s1) == tolower(*s2)) {
+		s1++, s2++;
+
+		while((*s1 > ' ' && *s1 < '0') || (*s1 > '9' && *s1 < 'A') || (*s1 > 'Z' && *s1 < 'a') || (*s1 > 'z'))
+			s1++;
+
+		while((*s2 > ' ' && *s2 < '0') || (*s2 > '9' && *s2 < 'A') || (*s2 > 'Z' && *s2 < 'a') || (*s2 > 'z'))
+			s2++;
+
+		if(*s1 == '\0')
+			break;
+	}
+
+	return tolower(*s1) - tolower(*s2);
+}
