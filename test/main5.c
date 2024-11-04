@@ -21,5 +21,7 @@ int main(void) {
 	if(line[0][2] == string[2])
 		printf("%c == %c\n", line[0][2], string[2]);
 
+	printf("String: %s\n", *line);
+
 	return 0;
 }
