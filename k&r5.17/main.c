@@ -62,11 +62,6 @@ int main(int argc, char**argv) {
 	comp = dir ? strdircmp : comp;
 	comp = dir && fold ? ic_strdircmp : comp;
 
-	if(comp == strCmp)
-		puts("strcmp");
-	if(comp == strdircmp)
-		puts("strdircmp");
-
 	Sort = rev ? QsortR : Qsort;
 
 	Sort(MAXFIELDS, fieldno - 1, lines, 0, nlines - 1, comp);
