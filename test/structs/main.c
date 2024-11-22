@@ -32,7 +32,7 @@ int main(void) {
 	printf("%c\n", *p->str++);
 	printf("%c\n", *(*p).str++); // this will display 'e' because str was incremented in the previous line
 
-	// the following statements, save the printf statements, are equivalents of each other
+	// the following statements are equivalents of each other
 	(*p->str)++;
 	printf("%c\n", *p->str);
 
