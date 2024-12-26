@@ -12,7 +12,7 @@ int main(void) {
 
 	int result = minscanf("%d%s", &val, string);
 
-	printf("%d\n%s\n", val, string);
+	printf("val = %d\nstring = %s\n", val, string);
 
 	printf("Result: %d\n", result);
 
@@ -20,6 +20,12 @@ int main(void) {
 
 	result = minscanf("%*d %d", &a, &val);
 	printf("Result: %d\n", result);
+	printf("a = %d\nval = %d\n", a, val);
+
+	int b, c;
+
+	result = minscanf("%d/%d", &b, &c);
+	printf("b = %d\nc = %d\n", b, c);
 
 	return 0;
 }

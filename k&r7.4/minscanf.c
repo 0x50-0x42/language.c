@@ -13,7 +13,9 @@
 
 int minscanf(char *format, ...) {
 
-	int success = 0;
+	int success = 0, c, intg, frac;
+
+	double mul = 0.1;
 
 	va_list ap;
 
@@ -28,6 +30,7 @@ int minscanf(char *format, ...) {
 			if(*format == '*') {// suppression character
 				while(*format != '%')
 					format++; // move to the next %
+				continue;
 			}
 
 			else if(*format == '%') { // if there is a % after %
@@ -42,7 +45,29 @@ int minscanf(char *format, ...) {
 					switch(*format) {
 						case 'f': // double
 							input = va_arg(ap, double*);
-							scanf("%lf", input);
+							*(double*)input = 0.0;
+
+							intg = frac = 0;
+
+							// take in the integral part
+							while(isdigit(c = getchar()))
+								intg = intg * 10 + (c - '0');
+							if(c == '.') {
+								// take in the fractional part
+								while(isdigit(c = getchar()))
+									frac = frac * 10 + (c - '0');
+							}
+							*(double*)input = frac;
+
+							// preparing the fractional part
+							while(frac != 0) {
+								*(double*)input = *(double*)input * mul;
+								frac /= 10;
+							}
+
+							*(double*)input = (double)intg + *(double*)input;
+
+							intg = frac = 0;
 
 							success++;
 
@@ -56,23 +81,59 @@ int minscanf(char *format, ...) {
 
 				case 'd': case 'i': // integer
 					input = va_arg(ap, int*);
-					scanf("%d", input);
 
-					success++;
+					intg = 0;
+					if(isdigit(c = getchar())) {
+						intg = intg * 10 + (c - '0');
+						while(isdigit(c = getchar()))
+							intg = intg * 10 + (c - '0');
+
+						*(int*)input = intg;
+						success++;
+						intg = 0;
+					}
+
+
 
 					break;
 
 				case 'f': // float/double
 					input = va_arg(ap, double*);
-					scanf("%f", input);
 
-					success++;
+					// decimal part
+					if(isdigit(c = getchar())) {
+						intg = intg * 10 + (c - '0');
+						while(isdigit(c = getchar()))
+							intg = intg * 10 + (c - '0');
+
+						if(c == '.') {
+							// fractional part
+							while(isdigit(c = getchar()))
+								frac = frac * 10 + (c - '0');
+						}
+
+						*(float*)input = frac;
+
+						while(frac != 0) {
+							*(float*)input = *(float*)input * mul;
+
+							frac /= 10;
+						}
+
+						*(float*)input = (float)intg + *(float*)input;
+
+						intg = frac = 0;
+
+						success++;
+					}
 
 					break;
 
 				case 's': // string
 					input = va_arg(ap, char*);
-					scanf("%s", input);
+
+					while(!isspace(c = getchar()))
+						*(char*)input++ = c;
 
 					success++;
 
@@ -80,7 +141,7 @@ int minscanf(char *format, ...) {
 
 				case 'c': // single character
 					input = va_arg(ap, char*);
-					scanf("%c", input);
+					*(char*)input = getchar();
 
 					success++;
 
@@ -92,8 +153,6 @@ int minscanf(char *format, ...) {
 					break;
 
 				default: // none of the above
-					format++;
-
 					clearerr(stdin);
 					break;
 
