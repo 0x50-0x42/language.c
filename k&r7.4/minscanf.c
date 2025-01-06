@@ -4,6 +4,8 @@
 
 #define nullptr NULL
 
+// replace every scanf with an equivalent repitition of getchar()
+
 /*
    > scanf ignores blanks and tabs in its format string
    > scanf skips over blanks, tabs, newlines, etc. as it looks for input values
@@ -28,6 +30,7 @@ int minscanf(char *format, ...) {
 			if(*format == '*') {// suppression character
 				while(*format != '%')
 					format++; // move to the next %
+				continue;
 			}
 
 			else if(*format == '%') { // if there is a % after %
@@ -42,7 +45,7 @@ int minscanf(char *format, ...) {
 					switch(*format) {
 						case 'f': // double
 							input = va_arg(ap, double*);
-							scanf("%lf", input);
+							scanf("%lf", (double*)input);
 
 							success++;
 
@@ -56,7 +59,7 @@ int minscanf(char *format, ...) {
 
 				case 'd': case 'i': // integer
 					input = va_arg(ap, int*);
-					scanf("%d", input);
+					scanf("%d", (int*)input);
 
 					success++;
 
@@ -64,7 +67,7 @@ int minscanf(char *format, ...) {
 
 				case 'f': // float/double
 					input = va_arg(ap, double*);
-					scanf("%f", input);
+					scanf("%lf", (double*)input);
 
 					success++;
 
@@ -72,7 +75,7 @@ int minscanf(char *format, ...) {
 
 				case 's': // string
 					input = va_arg(ap, char*);
-					scanf("%s", input);
+					scanf("%s", (char*)input);
 
 					success++;
 
@@ -80,7 +83,7 @@ int minscanf(char *format, ...) {
 
 				case 'c': // single character
 					input = va_arg(ap, char*);
-					scanf("%c", input);
+					scanf("%c", (char*)input);
 
 					success++;
 
@@ -92,12 +95,15 @@ int minscanf(char *format, ...) {
 					break;
 
 				default: // none of the above
-					format++;
-
 					clearerr(stdin);
 					break;
 
 			}
+		}
+
+		else if(*format == '/' || *format == '-' || *format == '.') {
+			char ch;
+			scanf("%c", &ch);
 		}
 
 		format++;
