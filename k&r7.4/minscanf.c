@@ -47,9 +47,7 @@ int minscanf(char *format, ...) {
 					switch(*format) {
 						case 'f': // double
 							input = va_arg(ap, double*);
-<<<<<<< HEAD
 							scanf("%lf", (double*)input);
-=======
 							*(double*)input = 0.0;
 
 							intg = frac = 0;
@@ -73,7 +71,6 @@ int minscanf(char *format, ...) {
 							*(double*)input = (double)intg + *(double*)input;
 
 							intg = frac = 0;
->>>>>>> 6c02cc4d037ec211014e0a4b95526b4425f76c7a
 
 							success++;
 
@@ -87,10 +84,7 @@ int minscanf(char *format, ...) {
 
 				case 'd': case 'i': // integer
 					input = va_arg(ap, int*);
-<<<<<<< HEAD
 					scanf("%d", (int*)input);
-=======
->>>>>>> 6c02cc4d037ec211014e0a4b95526b4425f76c7a
 
 					intg = 0;
 					if(isdigit(c = getchar())) {
@@ -109,10 +103,7 @@ int minscanf(char *format, ...) {
 
 				case 'f': // float/double
 					input = va_arg(ap, double*);
-<<<<<<< HEAD
 					scanf("%lf", (double*)input);
-=======
->>>>>>> 6c02cc4d037ec211014e0a4b95526b4425f76c7a
 
 					// decimal part
 					if(isdigit(c = getchar())) {
@@ -145,13 +136,10 @@ int minscanf(char *format, ...) {
 
 				case 's': // string
 					input = va_arg(ap, char*);
-<<<<<<< HEAD
 					scanf("%s", (char*)input);
-=======
 
 					while(!isspace(c = getchar()))
 						*(char*)input++ = c;
->>>>>>> 6c02cc4d037ec211014e0a4b95526b4425f76c7a
 
 					success++;
 
@@ -159,11 +147,8 @@ int minscanf(char *format, ...) {
 
 				case 'c': // single character
 					input = va_arg(ap, char*);
-<<<<<<< HEAD
 					scanf("%c", (char*)input);
-=======
 					*(char*)input = getchar();
->>>>>>> 6c02cc4d037ec211014e0a4b95526b4425f76c7a
 
 					success++;
 
