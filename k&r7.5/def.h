@@ -1,5 +1,9 @@
 #ifdef __MAIN__
-#define MAXLEN 1000
+int parse(char*, char*);
+#endif
 
-double scanOp(char*);
+#ifdef __PARSE__
+// buffer control
+int getch();
+void ungetch(int);
 #endif
