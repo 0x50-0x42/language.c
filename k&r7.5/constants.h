@@ -4,7 +4,7 @@
 #define COS 'C'
 #define TAN 'T'
 #define LOG 'L'
-#define VAR 'V'
+#define EXP 'E'
 #define ERR errno
 #define MAXLEN 1000
 
@@ -13,4 +13,3 @@
 #define SUB '-'
 #define MUL '*'
 #define DIV '/'
-#define POW '^'
