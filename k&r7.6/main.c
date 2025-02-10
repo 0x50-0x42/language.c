@@ -51,7 +51,7 @@ int main(void) {
 	fclose(fd1);
 	fclose(fd2);
 
-	// if both the files are identical, then print anything
+	// if both the files are identical, then don't print anything
 	if(f1 == EOF && f2 == EOF) ;
 
 	else if(f1 == EOF) {
