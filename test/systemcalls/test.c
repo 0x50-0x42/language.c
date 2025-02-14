@@ -11,7 +11,7 @@ int main(void) {
 	const char* filename = "text.txt";
 
 	// create the file
-	if((fd = creat(filename, 0711)) < 0) {
+	if((fd = creat(filename, 0755)) < 0) { // opening the file with rwx bits for the owner, r-x for the owner's group and r-x bits for all others
 		error(1, errno, "failed to create file!");
 
 		return 1;
