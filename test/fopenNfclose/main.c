@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
 
 	_FILE *fp;
 
-	if(!(fp = _fopen(argv[1], "r")))
+	if(!(fp = _fopen(argv[1], "w")))
 		error(1, errno, "failed to open file!");
 
 	return 0;
