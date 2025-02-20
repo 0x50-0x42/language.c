@@ -8,8 +8,8 @@ _FILE iob[OPEN_MAX] = { /* stdin, stdout and stderr */
 
 	{0, (char*) 0, (char*) 0, _READ, 0},
 	{0, (char*) 0, (char*) 0, _WRITE, 1},
-	{0, (char*) 0, (char*) 0, _WRITE | _UNBUF, 2}
-};
+	{0, (char*) 0, (char*) 0, _WRITE | _UNBUF, 2} // stderr is to be written unbuffered
+}; // the rest of the elements are set to 0s
 
 int main(int argc, char **argv) {
 	if(argc == 1)

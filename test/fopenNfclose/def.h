@@ -20,11 +20,11 @@ extern _FILE iob[OPEN_MAX];
 enum flags {
 
 	// octals
-	_READ = 01,
-	_WRITE = 02,
-	_UNBUF = 04,
-	_EOF = 010,
-	_ERR = 020
+	_READ = 01,     /*    000001 */
+	_WRITE = 02,    /*    000010 */
+	_UNBUF = 04,    /*    000100 */
+	_EOF = 010,     /* 000001000 */
+	_ERR = 020      /* 000010000 */
 };
 
 int filbuf(_FILE*); /* allocate and fill the input buffer */
