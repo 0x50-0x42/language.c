@@ -19,8 +19,6 @@ int main(int argc, char **argv) {
 	double start = (double)clock();
 	start /= CLOCKS_PER_SEC;
 
-	struct tm execTm;
-
 	if(argc == 1)
 		error(1, errno, "filename must be passed as args....");
 	if(argc > 2)
