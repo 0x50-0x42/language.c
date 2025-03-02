@@ -1,6 +1,10 @@
+// A beautiful implementation shown in K&R2
+
+
 #include<stdio.h>
 #include<error.h>
 #include<errno.h>
+#include<unistd.h>
 
 #include "def.h"
 
@@ -17,8 +21,16 @@ int main(int argc, char **argv) {
 
 	_FILE *fp;
 
-	if(!(fp = _fopen(argv[1], "w")))
+	if(!(fp = _fopen(argv[1], "r")))
 		error(1, errno, "failed to open file!");
+
+	int c;
+
+	while((c = filbuf(fp)) != _EOF)
+		printf("%c", c);
+
+	// close the file
+	close(fp->fd);
 
 	return 0;
 }
