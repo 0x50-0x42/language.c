@@ -29,7 +29,9 @@ enum flags {
 
 int filbuf(_FILE*); /* allocate and fill the input buffer */
 int _flushbuf(int, _FILE*);
+int _fflush(_FILE*);
 _FILE *_fopen(char*, char*);
+int _fclose(_FILE*);
 
 
 #define _feof(p) (((p)->flag & _EOF) != 0)

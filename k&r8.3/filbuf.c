@@ -18,12 +18,12 @@ int filbuf(_FILE *fp) {
 	if(fp->base == NULL) {
 		if(!(fp->base = calloc(bufsize, sizeof(char))))
 			return _EOF;
-		fp->ptr = base;
+		fp->ptr = fp->base;
 		fp->cnt = read(fp->fd, fp->base, bufsize); // take the input
 	}
 
 	else if(bufsize == 1) {
-		fp->ptr = base;
+		fp->ptr = fp->base;
 		fp->cnt = read(fp->fd, fp->base, bufsize);
 	}
 
