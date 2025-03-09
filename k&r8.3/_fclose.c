@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
-
 #include "def.h"
 
 int _fclose(_FILE *fp) {

@@ -1,4 +1,4 @@
-// an implementation taken from K&R2
+// An implementation taken from K&R2
 
 #define _BUFSIZ 1024
 #define OPEN_MAX 20

@@ -9,7 +9,7 @@
 int filbuf(_FILE *fp) {
 
 	// check the flag
-	if(fp->flag & (_READ | _EOF | _ERR) != _READ)
+	if((fp->flag & (_READ | _EOF | _ERR)) != _READ)
 		return _EOF;
 
 	int bufsize = (fp->flag & _UNBUF) ? 1 : _BUFSIZ;

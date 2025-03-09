@@ -8,7 +8,7 @@
 int _flushbuf(int c, _FILE *fp) {
 
 	// check if the file pointer has write flag enabled
-	if(*fp->flag & (_WRITE | _EOF | _ERR) != _WRITE)
+	if((fp->flag & (_WRITE | _EOF | _ERR)) != _WRITE)
 		return _EOF;
 
 	int bufsize = _BUFSIZ;
@@ -17,12 +17,17 @@ int _flushbuf(int c, _FILE *fp) {
 	if(fp->base == NULL) {
 		if(!(fp->base = calloc(bufsize, sizeof(char))))
 			return _ERR;
-		fp->ptr = base;
+		fp->ptr = fp->base;
 	}
 
 	fp->cnt++;
 
 	*fp->ptr++ = c;
+	if(c == '\n') {
+		fp->cnt = write(fp->fd, fp->base, fp->cnt);
+		fp->ptr = fp->base;
+		fp->cnt = 0;
+	}
 
 	return 1;
 }

@@ -13,7 +13,7 @@ _FILE* _fopen(char *filename, char *mode) {
 	_FILE *fp;
 
 	for(fp = _iob; fp - _iob < OPEN_MAX; fp++)
-		if(fp->flag & (_READ | _WRITE) == 0)
+		if((fp->flag & (_READ | _WRITE)) == 0)
 			break; // found our file pointer
 
 	if(fp - _iob >= OPEN_MAX)
