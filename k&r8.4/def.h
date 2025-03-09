@@ -32,6 +32,7 @@ int _flushbuf(int, _FILE*);
 int _fflush(_FILE*);
 _FILE *_fopen(char*, char*);
 int _fclose(_FILE*);
+int _fseek(_FILE*, long, int);
 
 
 #define _feof(p) (((p)->flag & _EOF) != 0)
