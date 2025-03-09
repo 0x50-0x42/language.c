@@ -42,11 +42,13 @@ int main(int argc, char **argv) {
 	int c;
 
 	while((c = filbuf(fp1)) != _EOF && c != _ERR)
-		_flushbuf(c, fp2);
+		_flushbuf(c, fp2); // flush characters one-by-one into fp2
+
+	_fflush(fp2);
 
 
 	_fclose(fp1);
-	//_fclose(fp2);
+	_fclose(fp2);
 
 	return 0;
 }

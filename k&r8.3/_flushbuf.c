@@ -7,6 +7,7 @@
 // flushes the buffer into the output file
 int _flushbuf(int c, _FILE *fp) {
 
+	// check if the file pointer has write flag enabled
 	if(*fp->flag & (_WRITE | _EOF | _ERR) != _WRITE)
 		return _EOF;
 
