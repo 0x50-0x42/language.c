@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 	while((c = filbuf(fp1)) != _EOF && c != _ERR)
 		_flushbuf(c, fp2);
 
-	_fflush(fp2);
+	//_fflush(fp2);
 
 	_fclose(fp1);
 	_fclose(fp2);
