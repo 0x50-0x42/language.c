@@ -9,6 +9,7 @@ int _fclose(_FILE *fp) {
 	if(fp == NULL)
 		return 1;
 
+
 	if(fp->base != NULL)
 		free(fp->base);
 

@@ -23,7 +23,7 @@ int _flushbuf(int c, _FILE *fp) {
 	fp->cnt++;
 	*fp->ptr++ = c;
 
-	// if there is a newline in the text, then print the whole text
+	// if there is a newline in the text, then write the whole text into the file
 	if(c == '\n') {
 		fp->cnt = write(fp->fd, fp->base, fp->cnt);
 		fp->ptr = fp->base; // reset ptr

@@ -38,7 +38,7 @@ _FILE *_fopen(char *filename, char *mode) {
 		lseek(fp->fd, 0L, 2);
 	}
 
-	fp->flag = *mode == 'r' ? _READ : _WRITE;
+	fp->flag = *mode == 'r' ? (_READ | _UNBUF): _WRITE;
 	fp->cnt = 0;
 	fp->base = fp->ptr = NULL;
 

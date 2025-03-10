@@ -4,12 +4,12 @@
 
 #include "def.h"
 
-int filbuf(_FILE *fp, long numChar) {
+int filbuf(_FILE *fp) {
 
 	if((fp->flag & (_READ | _EOF | _ERR)) != _READ)
 		return _EOF;
 
-	int bufsize = (fp->flag & _UNBUF) ? 1 : numChar;
+	int bufsize = (fp->flag & _UNBUF) ? 1 : _BUFSIZ;
 
 	if(fp->base == NULL) {
 		if(!(fp->base = calloc(bufsize, sizeof(char))))
@@ -18,7 +18,7 @@ int filbuf(_FILE *fp, long numChar) {
 		fp->cnt = read(fp->fd, fp->base, bufsize);
 	}
 
-	if(bufsize == 1) {
+	else if(bufsize == 1) {
 		fp->ptr = fp->base;
 		fp->cnt = read(fp->fd, fp->base, bufsize);
 	}
@@ -30,5 +30,5 @@ int filbuf(_FILE *fp, long numChar) {
 			return _ERR;
 	}
 
-	return _READ; // return the flag
+	return (unsigned char)*fp->ptr++;
 }

@@ -32,9 +32,21 @@ int main(int argc, char **argv) {
 		if(!(fp2 = _fopen(argv[2], "w")))
 			error(1, errno, "Failed to open file for writing...\n");
 
-	flibuf(fp1, 10);
+	int c;
 
-	_fseek(fp1, 10L, 1);
+	int cnt = 0;
+
+	while((c = filbuf(fp1)) != _EOF && c != _ERR) {
+		_flushbuf(c, fp2);
+
+		if(cnt == 1) {
+			_fseek(fp1, 10L, 1); // move the file pointer forward by 10 bytes for the file being read from
+			_fseek(fp2, 2L, 0); // move the file pointer forward by 2 bytes from the beginning of the file being written into
+		}
+
+		cnt++;
+	}
+
 
 	_fclose(fp1);
 	_fclose(fp2);
