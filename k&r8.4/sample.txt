@@ -1,0 +1,3 @@
+Hello! This is a sample text file that contains some random text.
+I wanted to see the functioning of lseek() and so I am using this text file
+as the input for my program written in C.
