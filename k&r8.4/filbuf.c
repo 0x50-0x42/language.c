@@ -4,12 +4,12 @@
 
 #include "def.h"
 
-int filbuf(_FILE *fp) {
+int filbuf(_FILE *fp, long numChar) {
 
 	if((fp->flag & (_READ | _EOF | _ERR)) != _READ)
 		return _EOF;
 
-	int bufsize = (fp->flag & _UNBUF) ? 1 : _BUFSIZ;
+	int bufsize = (fp->flag & _UNBUF) ? 1 : numChar;
 
 	if(fp->base == NULL) {
 		if(!(fp->base = calloc(bufsize, sizeof(char))))
@@ -30,5 +30,5 @@ int filbuf(_FILE *fp) {
 			return _ERR;
 	}
 
-	return (unsigned char) *fp->ptr++;
+	return _READ; // return the flag
 }

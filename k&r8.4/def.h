@@ -27,7 +27,7 @@ enum flags {
 	_ERR = 020      /* 000010000 */
 };
 
-int filbuf(_FILE*); /* allocate and fill the input buffer */
+int filbuf(_FILE*, long); /* allocate and fill the input buffer */
 int _flushbuf(int, _FILE*);
 int _fflush(_FILE*);
 _FILE *_fopen(char*, char*);

@@ -32,12 +32,9 @@ int main(int argc, char **argv) {
 		if(!(fp2 = _fopen(argv[2], "w")))
 			error(1, errno, "Failed to open file for writing...\n");
 
-	int c;
+	flibuf(fp1, 10);
 
-	while((c = filbuf(fp1)) != _EOF && c != _ERR)
-		_flushbuf(c, fp2);
-
-	//_fflush(fp2);
+	_fseek(fp1, 10L, 1);
 
 	_fclose(fp1);
 	_fclose(fp2);
